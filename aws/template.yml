@@ -1,0 +1,72 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: Hyperdoc - A Serverless Content Repository
+
+Resources:
+  FunctionGetNode:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda/api/node.get
+      Runtime: nodejs6.10
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Environment:
+        Variables:
+          TABLE_NODES_NAME: !Ref TableNodes
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /node/{uuid}
+            Method: get
+
+  FunctionPostNode:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda/api/node.post
+      Runtime: nodejs6.10
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NODES_NAME: !Ref TableNodes
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /node
+            Method: post
+
+  FunctionPutNode:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda/api/node.put
+      Runtime: nodejs6.10
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NODES_NAME: !Ref TableNodes
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /node/{uuid}
+            Method: put
+
+  FunctionDeleteNode:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda/api/node.delete
+      Runtime: nodejs6.10
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NODES_NAME: !Ref TableNodes
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /node/{uuid}
+            Method: delete
+
+  TableNodes:
+    Type: AWS::Serverless::SimpleTable

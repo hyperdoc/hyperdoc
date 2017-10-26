@@ -1,0 +1,28 @@
+{
+  "name": "hyperdoc-aws",
+  "version": "0.0.1",
+  "description": "Hyperdoc for AWS",
+  "author": "Ezequiel Foncubierta <ezequiel.foncubierta@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoncubierta/hyperdoc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/efoncubierta/hyperdoc/issues"
+  },
+  "homepage": "https://hyperdoc.io",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "aws-sdk": "^2.128.0",
+    "eslint": "^4.9.0",
+    "graphql": "^0.11.7",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
+}
