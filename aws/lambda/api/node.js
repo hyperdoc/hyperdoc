@@ -15,7 +15,7 @@ let lambdaUtil = require('./util')
 let HandleHttpResponse = lambdaUtil.HandleHttpResponse
 
 // lambda wrapping
-let wrapModule = require('./wrapper').wrapModule
+let wrapAWSLambdaModule = require('./wrapper').wrapAWSLambdaModule
 
 /**
  * Get a node.
@@ -23,34 +23,38 @@ let wrapModule = require('./wrapper').wrapModule
 function Get (event, context, callback) {
   let uuid = event.pathParameters.uuid
 
-  Repository.Node.find(uuid).then(node => {
+  return Repository.Node.find(uuid).then(node => {
     if (node) {
       HandleHttpResponse.ok(callback, node.toJSON())
     } else {
       HandleHttpResponse.notFound(callback, 'Node ' + uuid + ' not found')
     }
-  }).catch(err => {
-    console.log(err)
-    HandleHttpResponse.internalError(callback, err.message)
   })
 }
 
 /**
- * Save a node.
+ * Create or update a node.
  */
 function Save (event, context, callback) {
   let uuid = event.pathParameters.uuid
-  let body = event.body
+  let data = event.body
 
-  if (!body.uuid) {
-    body.uuid = uuid
-  }
+  // Find, or create new, node
+  var p = uuid ? Repository.Node.find(uuid) : Promise.resolve(new Node())
 
-  Repository.Node.put(body).then(node => {
-    HandleHttpResponse.ok(callback, node.toJSON())
-  }).catch(err => {
-    console.log(err)
-    HandleHttpResponse.internalError(callback, err.message)
+  return p.then(node => {
+    // node not found
+    if (!node) {
+      HandleHttpResponse.notFound(callback, 'Node ' + uuid + ' not found')
+    } else {
+      // set data
+      node.data = data
+
+      // and save it
+      return Repository.Node.save(uuid, data).then(node => {
+        HandleHttpResponse.ok(callback, node.toJSON())
+      })
+    }
   })
 }
 
@@ -60,15 +64,20 @@ function Save (event, context, callback) {
 function Delete (event, context, callback) {
   let uuid = event.pathParameters.uuid
 
-  Repository.Node.delete(uuid).then(res => {
-    HandleHttpResponse.ok(callback, {})
-  }).catch(err => {
-    console.log(err)
-    HandleHttpResponse.internalError(callback, err.message)
+  return Repository.Node.find(uuid).then(node => {
+    // node not found
+    if (!node) {
+      HandleHttpResponse.notFound(callback, 'Node ' + uuid + ' not found')
+    } else {
+      // delete node
+      return Repository.Node.delete(uuid).then(res => {
+        HandleHttpResponse.ok(callback, {})
+      })
+    }
   })
 }
 
-module.exports = wrapModule({
+module.exports = wrapAWSLambdaModule({
   get: Get,
   post: Save,
   put: Save,

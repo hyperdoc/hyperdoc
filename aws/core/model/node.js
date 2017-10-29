@@ -5,10 +5,14 @@ class Node {
   /**
    * Constructor.
    * 
-   * @param {string} uuid 
+   * @param {string} uuid - Node UUID
+   * @param {Object} data - Node data
+   * @param {Object} meta - Node metadata
    */
-  constructor (uuid) {
+  constructor (uuid, data, meta) {
     this.uuid = uuid
+    this.data = data || {}
+    this.meta = meta || {}
   }
 
   /**
@@ -16,7 +20,9 @@ class Node {
    */
   toJSON () {
     return {
-      uuid: this.uuid
+      uuid: this.uuid,
+      data: this.data,
+      meta: this.meta
     }
   }
 
@@ -26,7 +32,7 @@ class Node {
    * @param {Object} json - JSON
    */
   static fromJSON (json) {
-    return new Node(json.uuid)
+    return new Node(json.uuid, json.data, json.meta)
   }
 }
 

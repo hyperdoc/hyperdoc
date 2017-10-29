@@ -29,6 +29,21 @@ class NodeService {
   find (uuid) {
     return this.nodeStore.get(uuid)
   }
+
+  /**
+   * Save a node.
+   * 
+   * @param {Node} node - Node
+   */
+  save (node) {
+    // set timestamps
+    if (!node.meta.createTime) {
+      node.meta.createTime = new Date().toISOString()
+    }
+    node.meta.updateTime = new Date().toISOString()
+
+    return this.nodeStore.save(node)
+  }
 }
 
 module.exports = NodeService

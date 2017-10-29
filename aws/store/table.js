@@ -77,12 +77,6 @@ class DynamoTable {
     // generate UUID if missing
     data.uuid = data.uuid || uuid.v1()
 
-    // timestamps
-    if (!data.createTime) {
-      data.createTime = new Date().toISOString()
-    }
-    data.updateTime = new Date().toISOString()
-
     // put item and wrap response in a promise
     return new Promise((resolve, reject) => {
       documentClient.put({
