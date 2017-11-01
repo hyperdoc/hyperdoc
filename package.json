@@ -1,0 +1,26 @@
+{
+  "name": "hyperdoc",
+  "version": "0.0.1",
+  "description": "Hyperdoc - A Serverless Content Repository",
+  "author": "Ezequiel Foncubierta <ezequiel.foncubierta@gmail.com>",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efoncubierta/hyperdoc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/efoncubierta/hyperdoc/issues"
+  },
+  "homepage": "https://hyperdoc.io",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-install": "^1.1.0",
+    "gulp-istanbul": "^1.1.2",
+    "gulp-mocha": "^4.3.1"
+  },
+  "scripts": {
+    "gulp": "gulp"
+  }
+}
