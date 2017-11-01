@@ -1,6 +1,12 @@
 {
-    "extends": "standard",
-    "parserOptions": {
-        "ecmaVersion": 6
-    }
+  "extends": "standard",
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "plugins": [
+    "mocha"
+  ],
+  "rules": {
+    "mocha/no-exclusive-tests": "error"
+  }
 }

@@ -1,4 +1,4 @@
-let Model = {
+const Model = {
   Node: require('./node')
 }
 

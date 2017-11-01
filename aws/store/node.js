@@ -1,8 +1,8 @@
 'user strict'
 
-let NodeStore = require('../core/store/node')
-let Node = require('../core/model/node')
-let DynamoTable = require('./table')
+const NodeStore = require('../core/store/node')
+const Node = require('../core/model/node')
+const DynamoTable = require('./table')
 
 /**
  * Storage for nodes based on AWS's DynamoDB.
@@ -17,7 +17,7 @@ class AWSNodeStore extends NodeStore {
     super()
 
     // get parameters of nodes table
-    let tableParams = config.tables.node
+    const tableParams = config.tables.node
 
     // init nodes table
     this.nodeTable = new DynamoTable(tableParams, Node.fromJSON)

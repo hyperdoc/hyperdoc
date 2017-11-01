@@ -1,7 +1,7 @@
 'use strict'
 
 // default variables
-let defaults = {
+const defaults = {
   AWS_PROFILE: 'default',
   AWS_REGION: 'eu-west-1',
   ENVIRONMENT_STAGE: 'development',
@@ -29,7 +29,7 @@ function getVar (name) {
 }
 
 // Hyperdoc configuration
-let config = {
+const config = {
   aws: {
     profile: getVar('AWS_PROFILE'),
     region: getVar('AWS_REGION'),

@@ -7,7 +7,7 @@ Resources:
   FunctionGetNode:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda/api/node.get
+      Handler: lambda/api.node.get
       Runtime: nodejs6.10
       Policies: AmazonDynamoDBReadOnlyAccess
       Environment:
@@ -23,7 +23,7 @@ Resources:
   FunctionPostNode:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda/api/node.post
+      Handler: lambda/api.node.post
       Runtime: nodejs6.10
       Policies: AmazonDynamoDBFullAccess
       Environment:
@@ -39,7 +39,7 @@ Resources:
   FunctionPutNode:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda/api/node.put
+      Handler: lambda/api.node.put
       Runtime: nodejs6.10
       Policies: AmazonDynamoDBFullAccess
       Environment:
@@ -55,7 +55,7 @@ Resources:
   FunctionDeleteNode:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda/api/node.delete
+      Handler: lambda/api.node.delete
       Runtime: nodejs6.10
       Policies: AmazonDynamoDBFullAccess
       Environment:

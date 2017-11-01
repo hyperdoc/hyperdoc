@@ -1,7 +1,7 @@
 'user strict'
 
-let StoreRegistry = require('../core/store/registry')
-let AWSNodeStore = require('./node')
+const StoreRegistry = require('../core/store/registry')
+const AWSNodeStore = require('./node')
 
 /**
  * Initialise an AWS based store registry.
@@ -10,7 +10,7 @@ let AWSNodeStore = require('./node')
  */
 function initStoreRegistry (config) {
   // init stores
-  let nodeStore = new AWSNodeStore(config)
+  const nodeStore = new AWSNodeStore(config)
 
   return new StoreRegistry(nodeStore)
 }

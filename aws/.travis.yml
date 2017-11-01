@@ -1,0 +1,11 @@
+language: node_js
+
+node_js:
+  - "6.10.3"
+
+install:
+  - npm install -g codecov
+
+script:
+  - istanbul cover ./node_modules/mocha/bin/mocha test/**/*.spec.js -- -R spec
+  - codecov

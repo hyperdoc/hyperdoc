@@ -1,8 +1,8 @@
 'use strict'
 
-let AWS = require('aws-sdk')
-var uuid = require('uuid')
-var documentClient = new AWS.DynamoDB.DocumentClient()
+const AWS = require('aws-sdk')
+const uuid = require('uuid')
+const documentClient = new AWS.DynamoDB.DocumentClient()
 
 /**
  * DynamoDB table.
@@ -48,7 +48,7 @@ class DynamoTable {
    * @return {Promise<Object>} A promise that returns the item object, or undefined if not found.
    */
   get (key) {
-    let self = this
+    const self = this
 
     // get item and wrap response in a promise
     return new Promise((resolve, reject) => {
@@ -72,7 +72,7 @@ class DynamoTable {
    * @return {Promise<Object>} A promise that returns the saved item object.
    */
   put (data) {
-    let self = this
+    const self = this
 
     // generate UUID if missing
     data.uuid = data.uuid || uuid.v1()

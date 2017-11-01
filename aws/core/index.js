@@ -1,9 +1,11 @@
 'use strict'
 
+let H
+
 /**
  * This class holds the execution context of Hyperdoc.
  */
-class HyperdocContext {
+class Hyperdoc {
   /**
    * Constructor.
    * 
@@ -26,8 +28,12 @@ class HyperdocContext {
  * @param {Object} config - Hyperdoc configuration
  * @param {StoreRegistry} storeRegistry - Store registry
  */
-function initContext (config, storeRegistry) {
-  return new HyperdocContext(config, storeRegistry)
+function initHyperdoc (config, storeRegistry) {
+  if (!H) {
+    H = new Hyperdoc(config, storeRegistry)
+  }
+
+  return H
 }
 
-module.exports = initContext
+module.exports = initHyperdoc

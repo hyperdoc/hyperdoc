@@ -1,6 +1,6 @@
 'use strict'
 
-let NodeStore = require('../store/node')
+const NodeStore = require('../store/node')
 
 /**
  * Node service.
@@ -23,24 +23,26 @@ class NodeService {
   /**
    * Find a node by UUID.
    * 
-   * @param {string} uuid 
+   * @param {HyperdocSession} session - Hyperdoc session
+   * @param {string} uuid - Node UUID
    * @return {Promise<Node>}
    */
-  find (uuid) {
+  find (session, uuid) {
     return this.nodeStore.get(uuid)
   }
 
   /**
    * Save a node.
-   * 
+   *
+   * @param {HyperdocSession} session - Hyperdoc session
    * @param {Node} node - Node
    */
-  save (node) {
+  save (session, uuid, data, meta) {
     // set timestamps
-    if (!node.meta.createTime) {
-      node.meta.createTime = new Date().toISOString()
+    if (!meta.createTime) {
+      meta.createTime = new Date().toISOString()
     }
-    node.meta.updateTime = new Date().toISOString()
+    meta.updateTime = new Date().toISOString()
 
     return this.nodeStore.save(node)
   }

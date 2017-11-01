@@ -1,4 +1,4 @@
-let NodeService = require('./node')
+const NodeService = require('./node')
 
 /**
  * Hyperdoc repository.
