@@ -15,6 +15,7 @@
   "license": "Apache-2.0",
   "dependencies": {},
   "devDependencies": {
+    "codecov": "^3.0.0",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-install": "^1.1.0",
     "gulp-istanbul": "^1.1.2",

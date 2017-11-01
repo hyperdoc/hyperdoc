@@ -4,9 +4,9 @@ node_js:
   - "6.10.3"
 
 install:
-  - npm install gulp istanbul codecov
-  - gulp install
+  - npm install
+  - ./node_modules/bin/gulp install
 
 script:
-  - gulp coverage
-  - codecov
+  - ./node_modules/bin/gulp coverage
+  - ./node_modules/bin/codecov
