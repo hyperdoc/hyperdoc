@@ -6,6 +6,7 @@ const istanbul = require('gulp-istanbul')
 const mocha = require('gulp-mocha')
 const path = require('path')
 
+const ROOT_PATH = path.join(__dirname)
 const CORE_PATH = path.join(__dirname, 'core')
 const AWS_PATH = path.join(__dirname, 'aws')
 
@@ -29,28 +30,24 @@ gulp.task('install', gulp.series(
   'install_aws'
 ))
 
-// code coverage at /core
-gulp.task('coverage_core', function () {
-  //process.chdir(CORE_PATH)
-  return gulp.src(['core/test/**/*.spec.js'])
+gulp.task('pre_test', function () {
+  process.chdir(ROOT_PATH)
+  return gulp.src(['./{core,aws}/**/*.js', '!./{core,aws}/{node_modules,test}/**/*.js'])
+    .pipe(istanbul({
+      includeUntested: true
+    }))
+    .pipe(istanbul.hookRequire())
+})
+
+gulp.task('mocha', function () {
+  process.chdir(ROOT_PATH)
+  return gulp.src(['./{core,aws}/test/**/*.spec.js'])
     .pipe(mocha())
-    // Creating the reports after tests ran
     .pipe(istanbul.writeReports())
     .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }))
 })
 
-// code coverage at /aws
-gulp.task('coverage_aws', function () {
-  // process.chdir(AWS_PATH)
-  return gulp.src(['aws/test/**/*.spec.js'])
-    .pipe(mocha())
-    // Creating the reports after tests ran
-    .pipe(istanbul.writeReports())
-    .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }))
-})
-
-// code coverage across all modules
-gulp.task('coverage', gulp.series(
-  'coverage_core',
-  'coverage_aws'
+gulp.task('test', gulp.series(
+  'pre_test',
+  'mocha'
 ))
