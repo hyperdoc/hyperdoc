@@ -2,7 +2,7 @@
 
 const HandleHttpResponse = require('./util').HandleHttpResponse
 
-const HyperdocSession = require('../core/session')
+const HyperdocSession = require('../../core/session')
 
 /**
  * Wrap an AWS Lambda function to handle general errors, execute interceptors, etc.

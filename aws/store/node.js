@@ -1,7 +1,7 @@
 'user strict'
 
-const NodeStore = require('../core/store/node')
-const Node = require('../core/model/node')
+const NodeStore = require('../../core/store/node')
+const Node = require('../../core/model/node')
 const DynamoTable = require('./table')
 
 /**

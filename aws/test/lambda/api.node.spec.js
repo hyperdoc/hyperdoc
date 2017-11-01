@@ -5,7 +5,7 @@
 const AWS = require('aws-sdk-mock')
 const uuid = require('uuid')
 const LambdaTester = require('lambda-tester')
-const Node = require('../../core/model').Node
+const Node = require('../../../core/model').Node
 const expect = require('chai').expect
 
 // placeholders for lambdas that will be initiated after mocking AWS

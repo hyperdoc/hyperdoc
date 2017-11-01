@@ -7,6 +7,6 @@ const config = require('../config')
 const storeRegistry = require('../store')(config.aws)
 
 // initiate Hyperdoc
-const H = require('../core')(config.hyperdoc, storeRegistry)
+const H = require('../../core')(config.hyperdoc, storeRegistry)
 
 module.exports = H

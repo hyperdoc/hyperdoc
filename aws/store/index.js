@@ -1,6 +1,6 @@
 'user strict'
 
-const StoreRegistry = require('../core/store/registry')
+const StoreRegistry = require('../../core/store/registry')
 const AWSNodeStore = require('./node')
 
 /**
