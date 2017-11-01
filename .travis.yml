@@ -4,7 +4,7 @@ node_js:
   - "6.10.3"
 
 install:
-  - npm install -g instanbul
+  - npm install -g istanbul
   - npm install -g codecov
 
 script:
