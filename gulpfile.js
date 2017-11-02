@@ -18,7 +18,7 @@ gulp.task('npm_install', function () {
 
 // prepare tests across all modules
 gulp.task('pre_test', function () {
-  return gulp.src(['./{core,aws}/**/*.js', '!./{core,aws}/{node_modules,test}/**/*.js'])
+  return gulp.src(['./{core,aws}/**/*.js', '!./{core,aws}/{node_modules,test}/**/*.js', '!./{core,aws}/gulpfile.js'])
     .pipe(istanbul({
       includeUntested: true
     }))
@@ -28,7 +28,7 @@ gulp.task('pre_test', function () {
 // run tests across all modules
 gulp.task('mocha', function () {
   return gulp.src(['./{core,aws}/test/**/*.spec.js'])
-    .pipe(mocha())
+    .pipe(mocha({reporter: 'spec'}))
     .pipe(istanbul.writeReports())
     .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }))
 })

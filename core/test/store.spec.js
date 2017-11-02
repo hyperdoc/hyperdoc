@@ -12,6 +12,6 @@ describe('Core :: Store', function () {
     const storeRegistry = new StoreRegistry(nodeStore)
 
     // check injected stores
-    expect(storeRegistry.nodeStore).to.equal(nodeStore)
+    expect(storeRegistry.getNodeStore()).to.equal(nodeStore)
   })
 })
