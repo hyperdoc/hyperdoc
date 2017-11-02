@@ -3,3 +3,16 @@
 [![codecov.io](https://codecov.io/github/efoncubierta/hyperdoc/coverage.svg?branch=master)](https://codecov.io/github/efoncubierta/hyperdoc?branch=master)
 
 # Hyperdoc - A Serverless Content Repository
+
+First, you must install Gulp CLI.
+
+```
+npm install --global gulp-cli
+```
+
+
+
+```
+npm install
+gulp test
+```

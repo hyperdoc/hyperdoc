@@ -6,7 +6,7 @@
 class NodeStore {
   /**
    * Delete a node from the store.
-   * 
+   *
    * @param {string} uuid - Node UUID
    * @return {Promise} A promise that returns empty
    */
@@ -16,7 +16,7 @@ class NodeStore {
 
   /**
    * Read a node from the store.
-   * 
+   *
    * @param {string} uuid - Node UUID
    * @return {Promise<Node>} A promise that returns the node or an error
    */
@@ -26,7 +26,7 @@ class NodeStore {
 
   /**
    * Put (create or update) a node in the store.
-   * 
+   *
    * @param {class} node - Node
    * @return {Promise<Node>} A promise that returns the saved node or an error
    */

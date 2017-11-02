@@ -8,7 +8,7 @@ let H
 class Hyperdoc {
   /**
    * Constructor.
-   * 
+   *
    * @param {Object} config - Hyperdoc configuration
    * @param {StoreRegistry} storeRegistry - Store registry
    */
@@ -24,7 +24,7 @@ class Hyperdoc {
 /**
  * This function initialises Hyperdoc given a configuration and a provider
  * specific stores registry.
- * 
+ *
  * @param {Object} config - Hyperdoc configuration
  * @param {StoreRegistry} storeRegistry - Store registry
  */

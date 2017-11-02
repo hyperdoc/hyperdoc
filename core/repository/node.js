@@ -1,6 +1,7 @@
 'use strict'
 
 const NodeStore = require('../store/node')
+const Node = require('../model/node')
 
 /**
  * Node service.
@@ -8,11 +9,11 @@ const NodeStore = require('../store/node')
 class NodeService {
   /**
    * Constructor.
-   * 
-   * @param {HyperdocContext} context - Hyperdoc context
+   *
+   * @param {NodeStore} nodeStore - Node storage
    */
-  constructor (context) {
-    this.nodeStore = context.storeRegistry.getNodeStore()
+  constructor (nodeStore) {
+    this.nodeStore = nodeStore
 
     // validate
     if (!(this.nodeStore instanceof NodeStore)) {
@@ -22,29 +23,33 @@ class NodeService {
 
   /**
    * Find a node by UUID.
-   * 
+   *
    * @param {HyperdocSession} session - Hyperdoc session
    * @param {string} uuid - Node UUID
    * @return {Promise<Node>}
    */
   find (session, uuid) {
-    return this.nodeStore.get(uuid)
+    return this.nodeStore.get(uuid).then(node => {
+      // TODO security checks
+      return Promise.resolve(node)
+    })
   }
 
   /**
    * Save a node.
    *
    * @param {HyperdocSession} session - Hyperdoc session
-   * @param {Node} node - Node
+   * @param {Object} data - Node data
+   * @param {Object} meta - Node metadata
    */
-  save (session, uuid, data, meta) {
+  create (session, data, meta) {
     // set timestamps
-    if (!meta.createTime) {
-      meta.createTime = new Date().toISOString()
-    }
-    meta.updateTime = new Date().toISOString()
+    meta.createTime = new Date().toISOString()
+    meta.updateTime = meta.createTime
 
-    return this.nodeStore.save(node)
+    // TODO security checks
+
+    return this.nodeStore.put(new Node(undefined, data, meta))
   }
 }
 

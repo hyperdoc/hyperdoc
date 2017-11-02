@@ -1,3 +1,5 @@
+'use strict'
+
 const NodeService = require('./node')
 
 /**
@@ -6,18 +8,18 @@ const NodeService = require('./node')
 class HyperdocRepository {
   /**
    * Constructor.
-   * 
-   * @param {HyperdocContext} context - Hyperdoc context 
+   *
+   * @param {HyperdocContext} context - Hyperdoc context
    */
   constructor (context) {
     // init services
-    this.Node = new NodeService(context)
+    this.Node = new NodeService(context.storeRegistry.getNodeStore())
   }
 }
 
 /**
  * Initialise Hyperdoc repository.
- * 
+ *
  * @param {HyperdocContext} context - Hyperdoc context
  */
 function initRepository (context) {

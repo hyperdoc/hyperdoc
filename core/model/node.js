@@ -1,10 +1,12 @@
+'use strict'
+
 /**
  * Represents a node in Hyperdoc.
  */
 class Node {
   /**
    * Constructor.
-   * 
+   *
    * @param {string} uuid - Node UUID
    * @param {Object} data - Node data
    * @param {Object} meta - Node metadata
@@ -28,7 +30,7 @@ class Node {
 
   /**
    * Build a Node instance from a JSON object.
-   * 
+   *
    * @param {Object} json - JSON
    */
   static fromJSON (json) {
