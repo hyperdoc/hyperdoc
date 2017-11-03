@@ -15,7 +15,13 @@ before(function () {
 })
 
 describe('Core :: Repository :: NodeService', function () {
-  it('crud', function () {
+  it('nodeStore passed by parameter must be an instance of NodeStore', function () {
+    expect(function () {
+      const service = new NodeService({})
+    }).to.throw("Node store must be an instance of 'NodeStore'")
+  })
+
+  it('create node with valid data', function () {
     const data = {
       test: 'test data'
     }
