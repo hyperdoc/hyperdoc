@@ -1,15 +1,17 @@
 'user strict'
 
-const Hyperdoc = require('hyperdoc-core')
-const NodeStore = Hyperdoc.Store.Node
-const Node = Hyperdoc.Model.Node
+import { Store, Model } from 'hyperdoc-core'
+const NodeStore = Store.NodeStore
+const Node = Model.Node
 
-const DynamoTable = require('./table')
+import { DynamoTable } from './table'
 
 /**
  * Storage for nodes based on AWS's DynamoDB.
  */
-class AWSNodeStore extends NodeStore {
+export class AWSNodeStore extends NodeStore {
+  private nodeTable: DynamoTable
+
   /**
    * Constructor.
    *
@@ -25,17 +27,15 @@ class AWSNodeStore extends NodeStore {
     this.nodeTable = new DynamoTable(tableParams, Node.fromJSON)
   }
 
-  get (uuid) {
+  get (uuid: string) {
     return this.nodeTable.get({uuid: uuid})
   }
 
-  delete (uuid) {
+  delete (uuid: string) {
     return this.nodeTable.delete({uuid: uuid})
   }
 
-  put (node) {
+  put (node: Node) {
     return this.nodeTable.put(node)
   }
 }
-
-module.exports = AWSNodeStore

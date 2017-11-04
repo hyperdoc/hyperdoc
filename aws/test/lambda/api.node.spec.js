@@ -27,7 +27,7 @@ before(function () {
   })
 
   // initiate lambda after mocking
-  const API_NODE = require('../../lambda/api.node')
+  const API_NODE = require('../../dist/lambda/api.node')
   GetNode = API_NODE.get
   SaveNode = API_NODE.post
 })

@@ -1,20 +1,24 @@
 'use strict'
 
-const AWS = require('aws-sdk')
-const uuid = require('uuid')
+import * as AWS from 'aws-sdk'
 const documentClient = new AWS.DynamoDB.DocumentClient()
+
+import * as uuid from 'uuid'
 
 /**
  * DynamoDB table.
  */
-class DynamoTable {
+export class DynamoTable {
+  private params: any
+  private mapper: Function
+
   /**
    * Constructor.
    * 
-   * @param {Object} params - Table parameters
+   * @param {any} params - Table parameters
    * @param {Function} mapper - Item mapper
    */
-  constructor (params, mapper) {
+  constructor (params: any, mapper: Function) {
     this.params = params
     this.mapper = mapper
   }
@@ -92,5 +96,3 @@ class DynamoTable {
     })
   }
 }
-
-module.exports = DynamoTable

@@ -19,6 +19,7 @@
     "uuid": "^3.1.0"
   },
   "devDependencies": {
+    "@types/node": "^6.0.90",
     "aws-sdk-mock": "^1.7.0",
     "chai": "^4.1.2",
     "codecov": "^3.0.0",
@@ -28,15 +29,18 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "lambda-tester": "^3.1.0",
-    "mocha": "^4.0.1",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-install": "^1.1.0",
     "gulp-istanbul": "^1.1.2",
     "gulp-mocha": "^3.0.1",
-    "hyperdoc-core": "^0.0.1"
+    "hyperdoc-core": "^0.0.1",
+    "lambda-tester": "^3.1.0",
+    "mocha": "^4.0.1",
+    "typescript": "^2.6.1",
+    "typescript-eslint-parser": "^8.0.1"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "tsc": "tsc"
   }
 }

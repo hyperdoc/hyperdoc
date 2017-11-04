@@ -3,15 +3,19 @@
 /**
  * Represents a node in Hyperdoc.
  */
-class Node {
+export class Node {
+  public uuid: string
+  public data: any
+  public meta: any
+
   /**
    * Constructor.
    *
    * @param {string} uuid - Node UUID
-   * @param {Object} data - Node data
-   * @param {Object} meta - Node metadata
+   * @param {any} data - Node data
+   * @param {any} meta - Node metadata
    */
-  constructor (uuid, data, meta) {
+  constructor (uuid: string, data: any, meta: any) {
     this.uuid = uuid
     this.data = data || {}
     this.meta = meta || {}
@@ -37,5 +41,3 @@ class Node {
     return new Node(json.uuid, json.data, json.meta)
   }
 }
-
-module.exports = Node

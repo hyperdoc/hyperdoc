@@ -50,8 +50,8 @@ const config = {
 // since it will provide the right credentials
 if (!process.env.LAMBDA_TASK_ROOT) {
   // Code is not running in a Lambda container, set AWS profile to use
-  process.env.AWS_PROFILE = config.AWS_PROFILE
-  process.env.AWS_REGION = config.AWS_REGION
+  process.env.AWS_PROFILE = config.aws.profile
+  process.env.AWS_REGION = config.aws.region
 }
 
-module.exports = config
+export = config

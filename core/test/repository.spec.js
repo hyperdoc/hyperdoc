@@ -1,7 +1,7 @@
 /* global before, it, describe */
 'use strict'
 
-const NodeService = require('../repository/service/node')
+const NodeService = require('../dist/services/node').NodeService
 const InMemoryNodeStore = require('./store/inmemory/node')
 
 const expect = require('chai').expect
@@ -15,16 +15,6 @@ before(function () {
 })
 
 describe('Core :: Repository :: NodeService', function () {
-  it('nodeStore passed by parameter must be an instance of NodeStore', function () {
-    expect(function () {
-      const service = new NodeService({})
-    }).to.throw("Node store must be an instance of 'NodeStore'")
-
-    expect(function () {
-      const service = new NodeService(new InMemoryNodeStore())
-    }).to.not.throw()
-  })
-
   it('create node with valid data', function () {
     const data = {
       test: 'test data'

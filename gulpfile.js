@@ -7,11 +7,35 @@ const istanbul = require('gulp-istanbul')
 const mocha = require('gulp-mocha')
 const path = require('path')
 const fs = require('fs')
+const ts = require('gulp-typescript')
 
 const ROOT_PATH = path.join(__dirname)
 const CORE_PATH = path.join(__dirname, 'core')
 const AWS_PATH = path.join(__dirname, 'aws')
 const DIST_PATH = path.join(__dirname, 'dist')
+
+gulp.task('compile_core', function () {
+  process.chdir(CORE_PATH)
+
+  const tsProject = ts.createProject('tsconfig.json')
+  return tsProject.src()
+    .pipe(tsProject())
+    .js.pipe(gulp.dest('dist'))
+})
+
+gulp.task('compile_aws', function () {
+  process.chdir(AWS_PATH)
+
+  const tsProject = ts.createProject('tsconfig.json')
+  return tsProject.src()
+    .pipe(tsProject())
+    .js.pipe(gulp.dest('dist'))
+})
+
+gulp.task('compile', gulp.series(
+  'compile_core',
+  'compile_aws'
+))
 
 // npm install across all modules
 gulp.task('npm_install', function () {
@@ -21,7 +45,7 @@ gulp.task('npm_install', function () {
 
 // prepare tests across all modules
 gulp.task('pre_test', function () {
-  return gulp.src(['./{core,aws}/**/*.js', '!./{core,aws}/{node_modules,test}/**/*.js', '!./{core,aws}/gulpfile.js'])
+  return gulp.src(['./{core,aws}/dist/**/*.js'])
     .pipe(istanbul({
       includeUntested: true
     }))
@@ -41,22 +65,4 @@ gulp.task('test', gulp.series(
   'npm_install',
   'pre_test',
   'mocha'
-))
-
-// remove /dist directory
-gulp.task('clean_dist', function () {
-  return gulp.src(DIST_PATH)
-    .pipe(clean())
-})
-
-// copy production files to /dist
-gulp.task('dist', function () {
-  return gulp.src(['./{core,aws}/**/*.js', '!./{core,aws}/{node_modules,test}/**/*.js', '!./{core,aws}/gulpfile.js'])
-    .pipe(gulp.dest(DIST_PATH))
-})
-
-gulp.task('build', gulp.series(
-  'test',
-  'clean_dist',
-  'dist'
 ))

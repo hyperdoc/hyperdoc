@@ -1,7 +1,7 @@
 'use strict'
 
-const NodeStore = require('../../../store/node')
-const Node = require('../../../model/node')
+const NodeStore = require('../../../dist/store').NodeStore
+const Node = require('../../../dist/model').Node
 
 const _ = require('underscore')
 const uuid = require('uuid')

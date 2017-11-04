@@ -1,15 +1,14 @@
 'use strict'
 
 // read config
-const Hyperdoc = require('./init')
+import { H as Hyperdoc } from './init'
 const Repository = Hyperdoc.Repository
 
 // error handling
-const lambdaUtil = require('./util')
-const HandleHttpResponse = lambdaUtil.HandleHttpResponse
+import { HandleHttpResponse } from './util'
 
 // lambda wrapping
-const wrapAWSLambdaModule = require('./wrapper').wrapAWSLambdaModule
+import { wrapAWSLambdaModule } from './wrapper'
 
 /**
  * Get a node.
@@ -73,7 +72,7 @@ function Delete (event, context, callback) {
   })
 }
 
-module.exports = wrapAWSLambdaModule({
+export = wrapAWSLambdaModule({
   get: Get,
   post: Save,
   put: Save,

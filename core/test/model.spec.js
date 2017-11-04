@@ -2,7 +2,7 @@
 'use strict'
 
 const uuid = require('uuid')
-const Node = require('../model').Node
+const Node = require('../dist/model').Node
 const expect = require('chai').expect
 
 describe('Core :: Model', function () {

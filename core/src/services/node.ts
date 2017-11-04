@@ -1,24 +1,21 @@
 'use strict'
 
-const NodeStore = require('../../store/node')
-const Node = require('../../model/node')
+import { NodeStore } from '../store'
+import { Node } from '../model'
 
 /**
  * Node service.
  */
-class NodeService {
+export class NodeService {
+  private nodeStore: NodeStore
+
   /**
    * Constructor.
    *
    * @param {NodeStore} nodeStore - Node storage
    */
-  constructor (nodeStore) {
+  constructor (nodeStore: NodeStore) {
     this.nodeStore = nodeStore
-
-    // validate
-    if (!(nodeStore instanceof NodeStore)) {
-      throw new Error("Node store must be an instance of 'NodeStore'")
-    }
   }
 
   /**
@@ -52,5 +49,3 @@ class NodeService {
     return this.nodeStore.put(new Node(undefined, data, meta))
   }
 }
-
-module.exports = NodeService

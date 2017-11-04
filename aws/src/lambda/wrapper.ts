@@ -1,13 +1,13 @@
 'use strict'
 
-const HandleHttpResponse = require('./util').HandleHttpResponse
+import { HandleHttpResponse } from './util'
 
 /**
  * Wrap an AWS Lambda function to handle general errors, execute interceptors, etc.
  *
  * @param {Function} func - AWS Lambda function
  */
-function wrapAWSLambdaFunction (func) {
+export function wrapAWSLambdaFunction (func: Function) {
   return (event, context, callback) => {
     try {
       // TODO apply PRE lambda interceptors
@@ -38,14 +38,12 @@ function wrapAWSLambdaFunction (func) {
 /**
  * Wrap an object containing AWS Lambda functions.
  *
- * @param {Object} module - AWS Lambda module
+ * @param {{}} module - AWS Lambda module
  */
-function wrapAWSLambdaModule (module) {
+export function wrapAWSLambdaModule (module: {}) {
   const wrappedModule = {}
   for (const key in module) {
     wrappedModule[key] = wrapAWSLambdaFunction(module[key])
   }
   return wrappedModule
 }
-
-module.exports = {wrapAWSLambdaModule, wrapAWSLambdaFunction}

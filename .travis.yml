@@ -10,6 +10,7 @@ install:
   - cd ..
 
 script:
+  - ./node_modules/.bin/gulp compile
   - ./node_modules/.bin/gulp test
   - ./node_modules/.bin/codecov
 
