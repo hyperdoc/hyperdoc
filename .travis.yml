@@ -5,6 +5,9 @@ node_js:
 
 install:
   - npm install
+  - cd core && npm link
+  - cd ../aws && npm link hyperdoc-core
+  - cd ..
 
 script:
   - ./node_modules/.bin/gulp test
