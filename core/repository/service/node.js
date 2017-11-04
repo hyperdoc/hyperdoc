@@ -1,7 +1,7 @@
 'use strict'
 
-const NodeStore = require('../store/node')
-const Node = require('../model/node')
+const NodeStore = require('../../store/node')
+const Node = require('../../model/node')
 
 /**
  * Node service.
@@ -16,7 +16,7 @@ class NodeService {
     this.nodeStore = nodeStore
 
     // validate
-    if (!(this.nodeStore instanceof NodeStore)) {
+    if (!(nodeStore instanceof NodeStore)) {
       throw new Error("Node store must be an instance of 'NodeStore'")
     }
   }

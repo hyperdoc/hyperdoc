@@ -6,7 +6,7 @@
 class HttpResponse {
   /**
    * Constructor.
-   * 
+   *
    * @param {number} statusCode - HTTP status code
    * @param {Object} body - Response body (if any)
    */

@@ -1,29 +1,20 @@
 'use strict'
 
-const NodeService = require('./node')
+const NodeService = require('./service/node')
+const StoreRegistry = require('../store/registry')
+
+const DEFAULT_CONFIG = {}
 
 /**
  * Hyperdoc repository.
  */
-class HyperdocRepository {
-  /**
-   * Constructor.
-   *
-   * @param {HyperdocContext} context - Hyperdoc context
-   */
-  constructor (context) {
-    // init services
-    this.Node = new NodeService(context.storeRegistry.getNodeStore())
+class Repository {
+  configure (config, storeRegistry) {
+    this.config = config || DEFAULT_CONFIG
+    this.storeRegistry = storeRegistry || new StoreRegistry()
+
+    this.Node = new NodeService(this.storeRegistry.nodeStore)
   }
 }
 
-/**
- * Initialise Hyperdoc repository.
- *
- * @param {HyperdocContext} context - Hyperdoc context
- */
-function initRepository (context) {
-  return new HyperdocRepository(context)
-}
-
-module.exports = initRepository
+module.exports = new Repository()

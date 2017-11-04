@@ -1,8 +1,8 @@
 'use strict'
 
 // read config
-const H = require('./init')
-const Repository = H.Repository
+const Hyperdoc = require('./init')
+const Repository = Hyperdoc.Repository
 
 // error handling
 const lambdaUtil = require('./util')
@@ -13,7 +13,7 @@ const wrapAWSLambdaModule = require('./wrapper').wrapAWSLambdaModule
 
 /**
  * Get a node.
- * 
+ *
  * @returns {Promise}
  */
 function Get (event, context, callback) {

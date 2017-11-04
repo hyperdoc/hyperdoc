@@ -1,7 +1,9 @@
 'user strict'
 
-const NodeStore = require('../../core/store/node')
-const Node = require('../../core/model/node')
+const Hyperdoc = require('hyperdoc-core')
+const NodeStore = Hyperdoc.Store.Node
+const Node = Hyperdoc.Model.Node
+
 const DynamoTable = require('./table')
 
 /**
@@ -10,7 +12,7 @@ const DynamoTable = require('./table')
 class AWSNodeStore extends NodeStore {
   /**
    * Constructor.
-   * 
+   *
    * @param {Object} config - Configuration
    */
   constructor (config) {

@@ -2,11 +2,9 @@
 
 const HandleHttpResponse = require('./util').HandleHttpResponse
 
-const HyperdocSession = require('../../core/session')
-
 /**
  * Wrap an AWS Lambda function to handle general errors, execute interceptors, etc.
- * 
+ *
  * @param {Function} func - AWS Lambda function
  */
 function wrapAWSLambdaFunction (func) {
@@ -14,7 +12,6 @@ function wrapAWSLambdaFunction (func) {
     try {
       // TODO apply PRE lambda interceptors
       context.hyperdoc = context.hyperdoc || {}
-      context.hyperdoc.session = new HyperdocSession('test')
 
       // invoke function
       var res = func(event, context, callback)
@@ -40,7 +37,7 @@ function wrapAWSLambdaFunction (func) {
 
 /**
  * Wrap an object containing AWS Lambda functions.
- * 
+ *
  * @param {Object} module - AWS Lambda module
  */
 function wrapAWSLambdaModule (module) {

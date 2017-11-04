@@ -1,5 +1,8 @@
 'use strict'
 
+// default stores
+const NodeStore = require('./node')
+
 /**
  * Store registry.
  *
@@ -13,17 +16,9 @@ class StoreRegistry {
    *
    * @param {NodeStore} nodeStore - Node store
    */
-  constructor (nodeStore) {
-    this.nodeStore = nodeStore
-  }
-
-  /**
-   * Get node store.
-   *
-   * @return Node store
-   */
-  getNodeStore () {
-    return this.nodeStore
+  constructor ({nodeStore}) {
+    // set a custom node store or a default one
+    this.nodeStore = nodeStore || new NodeStore()
   }
 }
 

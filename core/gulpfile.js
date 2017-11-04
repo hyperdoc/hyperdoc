@@ -1,18 +1,30 @@
 'use strict'
 
 const gulp = require('gulp')
+const clean = require('gulp-clean')
 const install = require('gulp-install')
 const istanbul = require('gulp-istanbul')
 const mocha = require('gulp-mocha')
 const path = require('path')
 
 const ROOT_PATH = path.join(__dirname)
+const DIST_PATH = path.join(ROOT_PATH, 'dist')
 
 // npm install
-gulp.task('install', function (done) {
-  gulp.src(path.join(ROOT_PATH, 'package.json'))
+gulp.task('npm_install', function (done) {
+  return gulp.src(path.join(ROOT_PATH, 'package.json'))
     .pipe(install())
-  done()
+})
+
+gulp.task('clean', function () {
+  return gulp.src(DIST_PATH)
+    .pipe(clean())
+})
+
+// dist
+gulp.task('dist', function () {
+  return gulp.src(paths.scripts.concat(paths.html))
+    .pipe(gulp.dest(DIST_PATH))
 })
 
 // prepare tests

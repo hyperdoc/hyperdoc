@@ -5,8 +5,10 @@
 const AWS = require('aws-sdk-mock')
 const uuid = require('uuid')
 const LambdaTester = require('lambda-tester')
-const Node = require('../../../core/model').Node
 const expect = require('chai').expect
+
+const Hyperdoc = require('hyperdoc-core')
+const Node = Hyperdoc.Model.Node
 
 // placeholders for lambdas that will be initiated after mocking AWS
 let GetNode, SaveNode

@@ -1,3 +1,5 @@
+'use strict'
+
 const Model = {
   Node: require('./node')
 }

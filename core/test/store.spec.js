@@ -7,11 +7,11 @@ const StoreRegistry = require('../store/registry')
 const expect = require('chai').expect
 
 describe('Core :: Store', function () {
-  it('Stores must be registerd correctly in StoreRegistry', function () {
+  it('Stores must be registered correctly in StoreRegistry', function () {
     const nodeStore = new NodeStore()
-    const storeRegistry = new StoreRegistry(nodeStore)
+    const storeRegistry = new StoreRegistry({nodeStore})
 
     // check injected stores
-    expect(storeRegistry.getNodeStore()).to.equal(nodeStore)
+    expect(storeRegistry.nodeStore).to.equal(nodeStore)
   })
 })
