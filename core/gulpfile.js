@@ -1,35 +1,30 @@
 'use strict'
 
 const gulp = require('gulp')
-const clean = require('gulp-clean')
-const install = require('gulp-install')
 const istanbul = require('gulp-istanbul')
 const mocha = require('gulp-mocha')
 const path = require('path')
+const ts = require('gulp-typescript')
+const merge = require('merge2')
 
 const ROOT_PATH = path.join(__dirname)
-const DIST_PATH = path.join(ROOT_PATH, 'dist')
 
-// npm install
-gulp.task('npm_install', function (done) {
-  return gulp.src(path.join(ROOT_PATH, 'package.json'))
-    .pipe(install())
-})
+// compile TypeScript code into /dist
+gulp.task('compile', function () {
+  process.chdir(ROOT_PATH)
+  const tsProject = ts.createProject('tsconfig.json')
+  const tsResult = tsProject.src()
+    .pipe(tsProject())
 
-gulp.task('clean', function () {
-  return gulp.src(DIST_PATH)
-    .pipe(clean())
-})
-
-// dist
-gulp.task('dist', function () {
-  return gulp.src(paths.scripts.concat(paths.html))
-    .pipe(gulp.dest(DIST_PATH))
+  return merge([
+    tsResult.dts.pipe(gulp.dest('dist')),
+    tsResult.js.pipe(gulp.dest('dist'))
+  ])
 })
 
 // prepare tests
 gulp.task('pre_test', function () {
-  return gulp.src(['./**/*.js', '!./{node_modules,test}/**/*.js'])
+  return gulp.src(['./dist/**/*.js'])
     .pipe(istanbul({
       includeUntested: true
     }))
@@ -39,7 +34,7 @@ gulp.task('pre_test', function () {
 // run tests
 gulp.task('mocha', function () {
   return gulp.src(['./test/**/*.spec.js'])
-    .pipe(mocha())
+    .pipe(mocha({reporter: 'spec'}))
     .pipe(istanbul.writeReports())
     .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }))
 })
@@ -49,3 +44,9 @@ gulp.task('test', gulp.series(
   'pre_test',
   'mocha'
 ))
+
+module.exports = function (_gulp) {
+  ['compile', 'pre_test', 'mocha', 'test'].forEach(function (name) {
+    _gulp.task('core:' + name, gulp.task(name))
+  })
+}

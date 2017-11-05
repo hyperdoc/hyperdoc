@@ -18,14 +18,12 @@
     "@types/node": "^6.0.90",
     "codecov": "^3.0.0",
     "gulp": "gulpjs/gulp#4.0",
-    "gulp-clean": "^0.3.2",
-    "gulp-install": "^1.1.0",
-    "gulp-istanbul": "^1.1.2",
-    "gulp-mocha": "^3.0.1",
-    "gulp-typescript": "^3.2.3",
     "typescript": "^2.6.1"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "install_core": "cd core && npm install && npm link && cd ..",
+    "install_aws": "cd aws && npm link hyperdoc-core && npm install && cd ..",
+    "install_modules": "npm run install_core && npm run install_aws"
   }
 }
