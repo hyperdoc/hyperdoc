@@ -1,7 +1,17 @@
 {
   "extends": "standard",
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "parser": "typescript-eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true
+    }
   },
   "plugins": [
     "mocha"

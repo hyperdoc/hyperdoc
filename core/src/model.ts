@@ -3,7 +3,7 @@
 /**
  * Represents a node in Hyperdoc.
  */
-export class Node {
+export class NodeType {
   public uuid: string
   public data: any
   public meta: any
@@ -38,6 +38,6 @@ export class Node {
    * @param {Object} json - JSON
    */
   static fromJSON (json) {
-    return new Node(json.uuid, json.data, json.meta)
+    return new NodeType(json.uuid, json.data, json.meta)
   }
 }

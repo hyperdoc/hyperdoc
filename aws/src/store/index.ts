@@ -1,7 +1,6 @@
 'user strict'
 
-import * as Hyperdoc from 'hyperdoc-core'
-const StoreRegistry = Hyperdoc.Store.StoreRegistry
+import { StoreRegistry } from 'hyperdoc-core/dist/store'
 
 import { AWSNodeStore } from './node'
 
@@ -10,7 +9,7 @@ import { AWSNodeStore } from './node'
  *
  * @param {Object} config - Configuration
  */
-export function initStoreRegistry (config) {
+export function initStoreRegistry (config): StoreRegistry {
   // init stores
   const nodeStore = new AWSNodeStore(config)
 

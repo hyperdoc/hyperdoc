@@ -1,6 +1,6 @@
 'use strict'
 
-import { Node } from './model'
+import { NodeType } from './model'
 
 /**
  * Store registry.
@@ -33,7 +33,7 @@ export class NodeStore {
    * @param {string} uuid - Node UUID
    * @return {Promise} A promise that returns empty
    */
-  delete (uuid: string): Promise<Node> {
+  delete (uuid: string): Promise<NodeType> {
     throw new Error("Node store must be an instance of 'NodeStore'")
   }
 
@@ -41,19 +41,19 @@ export class NodeStore {
    * Read a node from the store.
    *
    * @param {string} uuid - Node UUID
-   * @return {Promise<Node>} A promise that returns the node or an error
+   * @return {Promise<NodeType>} A promise that returns the node or an error
    */
-  get (uuid: string): Promise<Node> {
+  get (uuid: string): Promise<NodeType> {
     throw new Error("Node store must be an instance of 'NodeStore'")
   }
 
   /**
    * Put (create or update) a node in the store.
    *
-   * @param {Node} node - Node
-   * @return {Promise<Node>} A promise that returns the saved node or an error
+   * @param {NodeType} node - Node object
+   * @return {Promise<NodeType>} A promise that returns the saved node or an error
    */
-  put (node: Node): Promise<Node> {
+  put (node: NodeType): Promise<NodeType> {
     throw new Error("Node store must be an instance of 'NodeStore'")
   }
 }

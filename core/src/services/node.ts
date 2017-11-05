@@ -1,7 +1,7 @@
 'use strict'
 
 import { NodeStore } from '../store'
-import { Node } from '../model'
+import { NodeType } from '../model'
 
 /**
  * Node service.
@@ -23,7 +23,7 @@ export class NodeService {
    *
    * @param {HyperdocSession} session - Hyperdoc session
    * @param {string} uuid - Node UUID
-   * @return {Promise<Node>}
+   * @return {Promise<NodeType>}
    */
   find (session, uuid) {
     return this.nodeStore.get(uuid).then(node => {
@@ -46,6 +46,6 @@ export class NodeService {
 
     // TODO security checks
 
-    return this.nodeStore.put(new Node(undefined, data, meta))
+    return this.nodeStore.put(new NodeType(undefined, data, meta))
   }
 }

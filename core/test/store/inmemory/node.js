@@ -1,7 +1,7 @@
 'use strict'
 
 const NodeStore = require('../../../dist/store').NodeStore
-const Node = require('../../../dist/model').Node
+const NodeType = require('../../../dist/model').NodeType
 
 const _ = require('underscore')
 const uuid = require('uuid')
@@ -42,7 +42,7 @@ class InMemoryNodeStore extends NodeStore {
     const self = this
 
     // node must be an instance of Node class
-    if (!(node instanceof Node)) {
+    if (!(node instanceof NodeType)) {
       return Promise.reject(new Error('node parameter is not an instance of Node'))
     }
 

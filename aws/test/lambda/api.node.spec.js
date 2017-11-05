@@ -7,15 +7,14 @@ const uuid = require('uuid')
 const LambdaTester = require('lambda-tester')
 const expect = require('chai').expect
 
-const Hyperdoc = require('hyperdoc-core')
-const Node = Hyperdoc.Model.Node
+const NodeType = require('hyperdoc-core/dist/model').NodeType
 
 // placeholders for lambdas that will be initiated after mocking AWS
 let GetNode, SaveNode
 
 const MISSING_NODE_UUID = uuid.v1()
 const NODE_UUID = uuid.v1()
-const NODE = new Node(NODE_UUID)
+const NODE = new NodeType(NODE_UUID)
 
 before(function () {
   AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
@@ -38,14 +37,6 @@ after(function () {
 
 describe('Lambda :: API :: Node', function () {
   this.timeout(1000)
-
-  it('sucessfully create a Node', function () {
-    return LambdaTester(SaveNode).event({
-      body: {
-
-      }
-    })
-  })
 
   it('return 404 if UUID does not exist', function () {
     return LambdaTester(GetNode).event({

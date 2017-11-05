@@ -8,7 +8,7 @@ import * as uuid from 'uuid'
 /**
  * DynamoDB table.
  */
-export class DynamoTable {
+export class DynamoTable<T> {
   private params: any
   private mapper: Function
 
@@ -27,9 +27,9 @@ export class DynamoTable {
    * Delete an item.
    * 
    * @param {Object} key - Item key
-   * @return {Promise<Object>} A promise that returns an empty object
+   * @return {Promise<T>} A promise that returns an empty object
    */
-  delete (key) {
+  delete (key): Promise<T> {
     // delete item and wrap response in a promise
     return new Promise((resolve, reject) => {
       documentClient.delete({
@@ -39,7 +39,7 @@ export class DynamoTable {
         if (err) {
           reject(err)
         } else {
-          resolve({})
+          resolve(undefined)
         }
       })
     })
@@ -49,9 +49,9 @@ export class DynamoTable {
    * Get an item.
    * 
    * @param {Object} key - Item key
-   * @return {Promise<Object>} A promise that returns the item object, or undefined if not found.
+   * @return {Promise<T>} A promise that returns the item object, or undefined if not found.
    */
-  get (key) {
+  get (key): Promise<T> {
     const self = this
 
     // get item and wrap response in a promise
@@ -73,9 +73,9 @@ export class DynamoTable {
    * Create, or update, an item.
    * 
    * @param {Object} data - Item data
-   * @return {Promise<Object>} A promise that returns the saved item object.
+   * @return {Promise<T>} A promise that returns the saved item object.
    */
-  put (data) {
+  put (data): Promise<T> {
     const self = this
 
     // generate UUID if missing

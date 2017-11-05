@@ -52,21 +52,5 @@ Resources:
             Path: /node/{uuid}
             Method: put
 
-  FunctionDeleteNode:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: lambda/api.node.delete
-      Runtime: nodejs6.10
-      Policies: AmazonDynamoDBFullAccess
-      Environment:
-        Variables:
-          TABLE_NODES_NAME: !Ref TableNodes
-      Events:
-        GetResource:
-          Type: Api
-          Properties:
-            Path: /node/{uuid}
-            Method: delete
-
   TableNodes:
     Type: AWS::Serverless::SimpleTable

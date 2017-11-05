@@ -1,8 +1,7 @@
 'user strict'
 
-import { Store, Model } from 'hyperdoc-core'
-const NodeStore = Store.NodeStore
-const Node = Model.Node
+import { NodeStore } from 'hyperdoc-core/dist/store'
+import { NodeType } from 'hyperdoc-core/dist/model'
 
 import { DynamoTable } from './table'
 
@@ -10,7 +9,7 @@ import { DynamoTable } from './table'
  * Storage for nodes based on AWS's DynamoDB.
  */
 export class AWSNodeStore extends NodeStore {
-  private nodeTable: DynamoTable
+  private nodeTable: DynamoTable<NodeType>
 
   /**
    * Constructor.
@@ -24,18 +23,18 @@ export class AWSNodeStore extends NodeStore {
     const tableParams = config.tables.node
 
     // init nodes table
-    this.nodeTable = new DynamoTable(tableParams, Node.fromJSON)
+    this.nodeTable = new DynamoTable<NodeType>(tableParams, NodeType.fromJSON)
   }
 
-  get (uuid: string) {
+  get (uuid: string): Promise<NodeType> {
     return this.nodeTable.get({uuid: uuid})
   }
 
-  delete (uuid: string) {
+  delete (uuid: string): Promise<NodeType> {
     return this.nodeTable.delete({uuid: uuid})
   }
 
-  put (node: Node) {
+  put (node: NodeType): Promise<NodeType> {
     return this.nodeTable.put(node)
   }
 }

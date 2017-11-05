@@ -11,4 +11,4 @@ const storeRegistry = initStoreRegistry(config.aws)
 import * as Hyperdoc from 'hyperdoc-core'
 Hyperdoc.Repository.configure(config, storeRegistry)
 
-export const H = Hyperdoc
+export = Hyperdoc

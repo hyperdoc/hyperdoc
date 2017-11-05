@@ -11,12 +11,12 @@ const DEFAULT_CONFIG = {}
 export class Repository {
   public config: any
   public storeRegistry: StoreRegistry
-  public Node: NodeService
+  public nodeService: NodeService
 
   configure (config: any, storeRegistry: StoreRegistry) {
     this.config = config || DEFAULT_CONFIG
     this.storeRegistry = storeRegistry
 
-    this.Node = new NodeService(this.storeRegistry.nodeStore)
+    this.nodeService = new NodeService(storeRegistry.nodeStore)
   }
 }

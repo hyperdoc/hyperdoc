@@ -1,8 +1,10 @@
 'use strict'
 
 // read config
-import { H as Hyperdoc } from './init'
+import * as Hyperdoc from './init'
 const Repository = Hyperdoc.Repository
+
+import { NodeType } from 'hyperdoc-core/dist/model'
 
 // error handling
 import { HandleHttpResponse } from './util'
@@ -18,7 +20,7 @@ import { wrapAWSLambdaModule } from './wrapper'
 function Get (event, context, callback) {
   const uuid = event.pathParameters.uuid
 
-  return Repository.Node.find(context.hyperdoc.session, uuid).then(node => {
+  return Repository.nodeService.find(context.hyperdoc.session, uuid).then(node => {
     if (node) {
       HandleHttpResponse.ok(callback, node.toJSON())
     } else {
@@ -35,38 +37,16 @@ function Save (event, context, callback) {
   const data = event.body
 
   // Find, or generate new, node
-  const p = uuid ? Repository.Node.find(context.hyperdoc.session, uuid) : Promise.resolve(new Node())
+  const p = uuid ? Repository.nodeService.find(context.hyperdoc.session, uuid) : Promise.resolve(new NodeType(undefined, {}, {}))
 
   return p.then(node => {
     // node not found
     if (!node) {
       HandleHttpResponse.notFound(callback, 'Node ' + uuid + ' not found')
     } else {
-      // set new data
-      node.data = data
-
       // and save it
-      return Repository.Node.save(context.hyperdoc.session, node).then(node => {
+      return Repository.nodeService.create(context.hyperdoc.session, data, {}).then(node => {
         HandleHttpResponse.ok(callback, node.toJSON())
-      })
-    }
-  })
-}
-
-/**
- * Delete a node.
- */
-function Delete (event, context, callback) {
-  const uuid = event.pathParameters.uuid
-
-  return Repository.Node.find(context.hyperdoc.session, uuid).then(node => {
-    // node not found
-    if (!node) {
-      HandleHttpResponse.notFound(callback, 'Node ' + uuid + ' not found')
-    } else {
-      // delete node
-      return Repository.Node.delete(context.hyperdoc.session, uuid).then(res => {
-        HandleHttpResponse.ok(callback, {})
       })
     }
   })
@@ -75,6 +55,5 @@ function Delete (event, context, callback) {
 export = wrapAWSLambdaModule({
   get: Get,
   post: Save,
-  put: Save,
-  delete: Delete
+  put: Save
 })
