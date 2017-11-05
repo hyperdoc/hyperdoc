@@ -1,9 +1,14 @@
 'use strict'
 
 const gulp = require('gulp')
+const istanbul = require('gulp-istanbul')
+const mocha = require('gulp-mocha')
+const path = require('path')
 
 require('./aws/gulpfile')(gulp)
 require('./core/gulpfile')(gulp)
+
+const ROOT_PATH = path.join(__dirname)
 
 // compile TypeScript files
 gulp.task('compile', gulp.series(
@@ -13,6 +18,7 @@ gulp.task('compile', gulp.series(
 
 // prepare tests
 gulp.task('pre_test', function () {
+  process.chdir(ROOT_PATH)
   return gulp.src(['./{core,aws}/dist/**/*.js'])
     .pipe(istanbul({
       includeUntested: true
@@ -22,6 +28,7 @@ gulp.task('pre_test', function () {
 
 // run tests
 gulp.task('mocha', function () {
+  process.chdir(ROOT_PATH)
   return gulp.src(['./{core,aws}/test/**/*.spec.js'])
     .pipe(mocha({reporter: 'spec'}))
     .pipe(istanbul.writeReports())
