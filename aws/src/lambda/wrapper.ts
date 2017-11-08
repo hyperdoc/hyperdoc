@@ -7,7 +7,7 @@ import { HandleHttpResponse } from './util'
  *
  * @param {Function} func - AWS Lambda function
  */
-export function wrapAWSLambdaFunction (func: Function) {
+export function wrapAWSLambdaFunction (func: Function): Function {
   return (event, context, callback) => {
     try {
       // TODO apply PRE lambda interceptors
@@ -33,17 +33,4 @@ export function wrapAWSLambdaFunction (func: Function) {
       HandleHttpResponse.internalError(callback, 'An internal error occurred')
     }
   }
-}
-
-/**
- * Wrap an object containing AWS Lambda functions.
- *
- * @param {{}} module - AWS Lambda module
- */
-export function wrapAWSLambdaModule (module: {}) {
-  const wrappedModule = {}
-  for (const key in module) {
-    wrappedModule[key] = wrapAWSLambdaFunction(module[key])
-  }
-  return wrappedModule
 }

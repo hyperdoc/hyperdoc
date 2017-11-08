@@ -1,9 +1,10 @@
 /* global it, describe */
 'use strict'
 
-const uuid = require('uuid')
-const NodeType = require('../dist/model').NodeType
-const expect = require('chai').expect
+import * as uuid from 'uuid'
+import { NodeType } from '../model'
+import { expect } from 'chai'
+import 'mocha'
 
 describe('Core :: Model', function () {
   it('convert Node class to and from JSON object', function () {

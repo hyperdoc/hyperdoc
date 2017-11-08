@@ -1,8 +1,6 @@
 'use strict'
 
 import * as AWS from 'aws-sdk'
-const documentClient = new AWS.DynamoDB.DocumentClient()
-
 import * as uuid from 'uuid'
 
 /**
@@ -16,9 +14,9 @@ export class DynamoTable<T> {
    * Constructor.
    * 
    * @param {any} params - Table parameters
-   * @param {Function} mapper - Item mapper
+   * @param {(obj: any) => T} mapper - Item mapper
    */
-  constructor (params: any, mapper: Function) {
+  constructor (params: any, mapper: (obj: any) => T) {
     this.params = params
     this.mapper = mapper
   }
@@ -30,6 +28,8 @@ export class DynamoTable<T> {
    * @return {Promise<T>} A promise that returns an empty object
    */
   delete (key): Promise<T> {
+    const documentClient = new AWS.DynamoDB.DocumentClient()
+
     // delete item and wrap response in a promise
     return new Promise((resolve, reject) => {
       documentClient.delete({
@@ -53,6 +53,7 @@ export class DynamoTable<T> {
    */
   get (key): Promise<T> {
     const self = this
+    const documentClient = new AWS.DynamoDB.DocumentClient()
 
     // get item and wrap response in a promise
     return new Promise((resolve, reject) => {
@@ -77,6 +78,7 @@ export class DynamoTable<T> {
    */
   put (data): Promise<T> {
     const self = this
+    const documentClient = new AWS.DynamoDB.DocumentClient()
 
     // generate UUID if missing
     data.uuid = data.uuid || uuid.v1()

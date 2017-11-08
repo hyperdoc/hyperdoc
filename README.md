@@ -13,6 +13,6 @@ npm install --global gulp-cli
 
 
 ```
-npm install
+npm install && npm run install_modules
 gulp test
 ```

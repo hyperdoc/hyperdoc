@@ -1,5 +1,6 @@
 node_modules
 coverage
 dist
+dist-test
 package-lock.json
 npm-debug.log

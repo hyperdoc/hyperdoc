@@ -8,7 +8,7 @@ import { DynamoTable } from './table'
 /**
  * Storage for nodes based on AWS's DynamoDB.
  */
-export class AWSNodeStore extends NodeStore {
+export class AWSNodeStore implements NodeStore {
   private nodeTable: DynamoTable<NodeType>
 
   /**
@@ -17,8 +17,6 @@ export class AWSNodeStore extends NodeStore {
    * @param {Object} config - Configuration
    */
   constructor (config) {
-    super()
-
     // get parameters of nodes table
     const tableParams = config.tables.node
 

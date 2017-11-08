@@ -1,16 +1,16 @@
 'use strict'
 
 // read config
-import * as Hyperdoc from './init'
+import * as Hyperdoc from '../init'
 const Repository = Hyperdoc.Repository
 
 import { NodeType } from 'hyperdoc-core/dist/model'
 
 // error handling
-import { HandleHttpResponse } from './util'
+import { HandleHttpResponse } from '../util'
 
 // lambda wrapping
-import { wrapAWSLambdaModule } from './wrapper'
+import { wrapAWSLambdaFunction } from '../wrapper'
 
 /**
  * Get a node.
@@ -52,8 +52,8 @@ function Save (event, context, callback) {
   })
 }
 
-export = wrapAWSLambdaModule({
-  get: Get,
-  post: Save,
-  put: Save
-})
+export = {
+  get: wrapAWSLambdaFunction(Get),
+  post: wrapAWSLambdaFunction(Save),
+  put: wrapAWSLambdaFunction(Save)
+}

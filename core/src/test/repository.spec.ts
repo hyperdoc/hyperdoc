@@ -1,10 +1,11 @@
 /* global before, it, describe */
 'use strict'
 
-const NodeService = require('../dist/services/node').NodeService
-const InMemoryNodeStore = require('./store/inmemory/node')
+import { NodeService } from '../services/node'
+import { InMemoryNodeStore } from './store/inmemory/node'
 
-const expect = require('chai').expect
+import { expect } from 'chai'
+import 'mocha'
 
 // placeholder for NodeService
 let nodeService

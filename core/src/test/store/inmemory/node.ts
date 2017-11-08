@@ -1,18 +1,19 @@
 'use strict'
 
-const NodeStore = require('../../../dist/store').NodeStore
-const NodeType = require('../../../dist/model').NodeType
+import { NodeStore } from '../../../store'
+import { NodeType } from '../../../model'
 
-const _ = require('underscore')
-const uuid = require('uuid')
+import * as _ from 'underscore'
+import * as uuid from 'uuid'
 
-class InMemoryNodeStore extends NodeStore {
+export class InMemoryNodeStore implements NodeStore {
+  private nodes: NodeType[]
+
   constructor () {
-    super()
     this.nodes = []
   }
 
-  delete (uuid) {
+  delete (uuid: string): Promise<NodeType> {
     const self = this
 
     return new Promise((resolve, reject) => {
@@ -21,11 +22,11 @@ class InMemoryNodeStore extends NodeStore {
         return node.uuid !== uuid
       })
 
-      resolve({})
+      resolve(null)
     })
   }
 
-  get (uuid) {
+  get (uuid: string): Promise<NodeType> {
     const self = this
 
     return new Promise((resolve, reject) => {
@@ -38,7 +39,7 @@ class InMemoryNodeStore extends NodeStore {
     })
   }
 
-  put (node) {
+  put (node: NodeType): Promise<NodeType> {
     const self = this
 
     // node must be an instance of Node class
@@ -63,5 +64,3 @@ class InMemoryNodeStore extends NodeStore {
     })
   }
 }
-
-module.exports = InMemoryNodeStore

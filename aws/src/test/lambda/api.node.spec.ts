@@ -2,19 +2,21 @@
 
 'use strict'
 
-const AWS = require('aws-sdk-mock')
-const uuid = require('uuid')
-const LambdaTester = require('lambda-tester')
-const expect = require('chai').expect
+import * as AWS from 'aws-sdk-mock'
+import * as uuid from 'uuid'
+import * as LambdaTester from 'lambda-tester'
+import { expect } from 'chai'
+import 'mocha'
 
-const NodeType = require('hyperdoc-core/dist/model').NodeType
+import { NodeType } from 'hyperdoc-core/dist/model'
+const API_NODE = require('../../lambda/api/node')
 
 // placeholders for lambdas that will be initiated after mocking AWS
 let GetNode, SaveNode
 
 const MISSING_NODE_UUID = uuid.v1()
 const NODE_UUID = uuid.v1()
-const NODE = new NodeType(NODE_UUID)
+const NODE = new NodeType(NODE_UUID, {}, {})
 
 before(function () {
   AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
@@ -26,7 +28,6 @@ before(function () {
   })
 
   // initiate lambda after mocking
-  const API_NODE = require('../../dist/lambda/api.node')
   GetNode = API_NODE.get
   SaveNode = API_NODE.post
 })
