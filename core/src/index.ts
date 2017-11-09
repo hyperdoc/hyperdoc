@@ -1,8 +1,11 @@
 'use strict'
 
-import { Repository } from './repository'
+import { Repository, HyperdocConfig } from './repository'
 
-export = {
-  Repository: new Repository(),
-  Config: {}
+const repo = new Repository()
+const config = <HyperdocConfig> {}
+
+export {
+  repo as Repository,
+  config as HyperdocConfig
 }

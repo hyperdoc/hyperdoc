@@ -1,15 +1,15 @@
 'use strict'
 
-import { HyperdocConfig } from './config'
-import { NodeService } from './services/node'
-import { StoreRegistry } from './store'
+import HyperdocConfig from './HyperdocConfig'
+import { StoreRegistry } from '../store'
+import { NodeService } from '../service'
 
 const DEFAULT_CONFIG: HyperdocConfig = {}
 
 /**
  * Hyperdoc repository.
  */
-export class Repository {
+export default class Repository {
   public config: HyperdocConfig
   public storeRegistry: StoreRegistry
   public nodeService: NodeService

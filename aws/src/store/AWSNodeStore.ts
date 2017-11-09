@@ -3,12 +3,12 @@
 import { NodeStore } from 'hyperdoc-core/dist/store'
 import { NodeType } from 'hyperdoc-core/dist/model'
 
-import { DynamoTable } from './table'
+import DynamoTable from './DynamoTable'
 
 /**
  * Storage for nodes based on AWS's DynamoDB.
  */
-export class AWSNodeStore implements NodeStore {
+export default class AWSNodeStore implements NodeStore {
   private nodeTable: DynamoTable<NodeType>
 
   /**

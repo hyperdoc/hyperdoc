@@ -1,7 +1,8 @@
 /* global before, it, describe */
 'use strict'
 
-import { NodeService } from '../services/node'
+import { Session } from '../repository'
+import { NodeService } from '../service'
 import { InMemoryNodeStore } from './store/inmemory/node'
 
 import { expect } from 'chai'
@@ -17,6 +18,7 @@ before(function () {
 
 describe('Core :: Repository :: NodeService', function () {
   it('create node with valid data', function () {
+    const session = new Session('test')
     const data = {
       test: 'test data'
     }
@@ -25,7 +27,7 @@ describe('Core :: Repository :: NodeService', function () {
     }
 
     // create node
-    return nodeService.create(null, data, meta).then(node => {
+    return nodeService.create(session, data, meta).then(node => {
       expect(node.uuid).to.exist
       expect(node.data).to.equal(data)
       expect(node.meta).to.equal(meta)

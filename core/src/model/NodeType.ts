@@ -3,7 +3,7 @@
 /**
  * Represents a node in Hyperdoc.
  */
-export class NodeType {
+export default class NodeType {
   public uuid: string
   public data: any
   public meta: any

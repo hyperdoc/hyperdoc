@@ -1,6 +1,6 @@
 'use strict'
 
-import { NodeType } from './model'
+import { NodeType } from '../model'
 
 /**
  * Store registry.
@@ -9,7 +9,7 @@ import { NodeType } from './model'
  * the infrastructure provider as possible, each provider must implement its own stores and pass
  * the store registry along when initialising Hyperdoc.
  */
-export class StoreRegistry {
+export default class StoreRegistry {
   public nodeStore: NodeStore
 
   /**

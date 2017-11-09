@@ -2,11 +2,12 @@
 
 import { NodeStore } from '../store'
 import { NodeType } from '../model'
+import { Session } from '../repository'
 
 /**
  * Node service.
  */
-export class NodeService {
+export default class NodeService {
   private nodeStore: NodeStore
 
   /**
@@ -21,11 +22,11 @@ export class NodeService {
   /**
    * Find a node by UUID.
    *
-   * @param {HyperdocSession} session - Hyperdoc session
+   * @param {Session} session - Hyperdoc session
    * @param {string} uuid - Node UUID
    * @return {Promise<NodeType>}
    */
-  find (session, uuid) {
+  find (session: Session, uuid: string): Promise<NodeType> {
     return this.nodeStore.get(uuid).then(node => {
       // TODO security checks
       return Promise.resolve(node)
@@ -35,11 +36,11 @@ export class NodeService {
   /**
    * Save a node.
    *
-   * @param {HyperdocSession} session - Hyperdoc session
-   * @param {Object} data - Node data
-   * @param {Object} meta - Node metadata
+   * @param {Session} session - Hyperdoc session
+   * @param {any} data - Node data
+   * @param {any} meta - Node metadata
    */
-  create (session, data, meta) {
+  create (session: Session, data: any, meta: any): Promise<NodeType> {
     // set timestamps
     meta.createTime = new Date().toISOString()
     meta.updateTime = meta.createTime

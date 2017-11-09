@@ -1,8 +1,9 @@
 /* global it, describe */
 'use strict'
 
-import * as uuid from 'uuid'
 import { NodeType } from '../model'
+
+import * as uuid from 'uuid'
 import { expect } from 'chai'
 import 'mocha'
 

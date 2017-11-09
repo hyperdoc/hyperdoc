@@ -1,6 +1,6 @@
 'use strict'
 
-export class HyperdocSession {
+export default class Session {
   public userId: string
   
   constructor (userId: string) {

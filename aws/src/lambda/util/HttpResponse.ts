@@ -3,7 +3,7 @@
 /**
  * Represents a HTTP response to the AWS API Gateway.
  */
-export class HttpResponse {
+export default class HttpResponse {
   public statusCode: number
   public body: {}
 

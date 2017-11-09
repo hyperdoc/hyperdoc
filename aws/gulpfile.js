@@ -25,6 +25,7 @@ gulp.task('compile', function () {
 
 // copy other resources to /dist
 gulp.task('copy', function () {
+  process.chdir(ROOT_PATH)
   return gulp.src('src/**/*.json')
     .pipe(gulp.dest('dist'))
 })
@@ -37,6 +38,7 @@ gulp.task('build', gulp.series(
 
 // prepare tests
 gulp.task('pre-test', function () {
+  process.chdir(ROOT_PATH)
   return gulp.src(['./dist/**/*.js', '!./dist/test/**/*.js'])
     .pipe(istanbul({
       includeUntested: true
@@ -46,6 +48,7 @@ gulp.task('pre-test', function () {
 
 // run tests
 gulp.task('mocha', function () {
+  process.chdir(ROOT_PATH)
   return gulp.src(['./dist/test/**/*.spec.js'])
     .pipe(mocha({reporter: 'spec'}))
     .pipe(istanbul.writeReports())
@@ -61,6 +64,7 @@ gulp.task('test', gulp.series(
 
 // delete working directories
 gulp.task('clean', function () {
+  process.chdir(ROOT_PATH)
   return del(['dist/**', 'coverage/**'])
 })
 

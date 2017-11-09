@@ -9,7 +9,7 @@ import { expect } from 'chai'
 import 'mocha'
 
 import { NodeType } from 'hyperdoc-core/dist/model'
-const API_NODE = require('../../lambda/api/node')
+const API_NODE = require('../../../lambda/api/node')
 
 // placeholders for lambdas that will be initiated after mocking AWS
 let GetNode, SaveNode
@@ -18,26 +18,24 @@ const MISSING_NODE_UUID = uuid.v1()
 const NODE_UUID = uuid.v1()
 const NODE = new NodeType(NODE_UUID, {}, {})
 
-before(function () {
-  AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
-    if (params.Key.uuid === NODE_UUID) {
-      callback(null, {Item: JSON.stringify(NODE)})
-    } else {
-      callback(null, {})
-    }
-  })
-
-  // initiate lambda after mocking
-  GetNode = API_NODE.get
-  SaveNode = API_NODE.post
-})
-
-after(function () {
-  AWS.restore('DynamoDB.DocumentClient')
-})
-
 describe('Lambda :: API :: Node', function () {
-  this.timeout(1000)
+  before(function () {
+    AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
+      if (params.Key.uuid === NODE_UUID) {
+        callback(null, {Item: JSON.stringify(NODE)})
+      } else {
+        callback(null, {})
+      }
+    })
+  
+    // initiate lambda after mocking
+    GetNode = API_NODE.get
+    SaveNode = API_NODE.post
+  })
+  
+  after(function () {
+    AWS.restore('DynamoDB.DocumentClient')
+  })
 
   it('return 404 if UUID does not exist', function () {
     return LambdaTester(GetNode).event({

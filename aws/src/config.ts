@@ -1,6 +1,6 @@
 'use strict'
 
-import { HyperdocConfig } from 'hyperdoc-core/dist/config'
+import { HyperdocConfig } from 'hyperdoc-core/dist/repository'
 
 // default variables
 const DEFAULT_ENV_VARIABLES = {

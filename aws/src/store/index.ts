@@ -3,7 +3,7 @@
 import { AwsConfig } from '../config'
 import { StoreRegistry } from 'hyperdoc-core/dist/store'
 
-import { AWSNodeStore } from './node'
+import AWSNodeStore from './AWSNodeStore'
 
 /**
  * Initialise an AWS based store registry.
@@ -16,3 +16,5 @@ export function initStoreRegistry (config: AwsConfig): StoreRegistry {
 
   return new StoreRegistry(nodeStore)
 }
+
+export { AWSNodeStore as AWSNodeStore }

@@ -3,6 +3,7 @@
 
 import { NodeType } from '../model'
 import { StoreRegistry, NodeStore } from '../store'
+
 import { expect } from 'chai'
 import 'mocha'
 

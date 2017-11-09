@@ -6,7 +6,7 @@ import * as uuid from 'uuid'
 /**
  * DynamoDB table.
  */
-export class DynamoTable<T> {
+export default class DynamoTable<T> {
   private params: any
   private mapper: Function
 
