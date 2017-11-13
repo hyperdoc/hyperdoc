@@ -28,7 +28,7 @@ describe('Core :: Repository :: NodeService', function () {
 
     // create node
     return nodeService.create(session, data, meta).then(node => {
-      expect(node.uuid).to.exist
+      expect(node.hrn).to.exist
       expect(node.data).to.equal(data)
       expect(node.meta).to.equal(meta)
     })

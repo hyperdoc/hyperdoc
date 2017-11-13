@@ -1,5 +1,9 @@
 'use strict'
 
+import NodeHRN from './NodeHRN'
 import NodeType from './NodeType'
+import UserType from './UserType'
 
-export {NodeType as NodeType}
+export { NodeHRN }
+export { NodeType }
+export { UserType }

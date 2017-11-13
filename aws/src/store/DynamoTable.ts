@@ -80,9 +80,6 @@ export default class DynamoTable<T> {
     const self = this
     const documentClient = new AWS.DynamoDB.DocumentClient()
 
-    // generate UUID if missing
-    data.uuid = data.uuid || uuid.v1()
-
     // put item and wrap response in a promise
     return new Promise((resolve, reject) => {
       documentClient.put({

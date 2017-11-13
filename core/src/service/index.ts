@@ -2,4 +2,4 @@
 
 import NodeService from './NodeService'
 
-export { NodeService as NodeService }
+export { NodeService }

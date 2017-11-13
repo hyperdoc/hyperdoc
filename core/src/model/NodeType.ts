@@ -1,22 +1,25 @@
 'use strict'
 
+import NodeHRN from './NodeHRN'
+import HyperdocResource from './HyperdocResource'
+
 /**
  * Represents a node in Hyperdoc.
  */
-export default class NodeType {
-  public uuid: string
+export default class NodeType implements HyperdocResource<NodeHRN> {
+  public hrn: NodeHRN
   public data: any
   public meta: any
 
   /**
    * Constructor.
    *
-   * @param {string} uuid - Node UUID
+   * @param {NodeHRN} hrn - Hyperdoc Resource Name
    * @param {any} data - Node data
    * @param {any} meta - Node metadata
    */
-  constructor (uuid: string, data: any, meta: any) {
-    this.uuid = uuid
+  constructor (hrn: NodeHRN, data: any, meta: any) {
+    this.hrn = hrn
     this.data = data || {}
     this.meta = meta || {}
   }
@@ -26,7 +29,7 @@ export default class NodeType {
    */
   toJSON () {
     return {
-      uuid: this.uuid,
+      hrn: this.hrn ? this.hrn.toString() : null,
       data: this.data,
       meta: this.meta
     }
@@ -38,6 +41,7 @@ export default class NodeType {
    * @param {Object} json - JSON
    */
   static fromJSON (json) {
-    return new NodeType(json.uuid, json.data, json.meta)
+    const hrn = json.hrn ? NodeHRN.fromString(json.hrn) : undefined
+    return new NodeType(hrn, json.data, json.meta)
   }
 }

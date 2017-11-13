@@ -3,5 +3,5 @@
 import NodeStore from './NodeStore'
 import StoreRegistry from './StoreRegistry'
 
-export { NodeStore as NodeStore}
-export { StoreRegistry as StoreRegistry}
+export { NodeStore }
+export { StoreRegistry }

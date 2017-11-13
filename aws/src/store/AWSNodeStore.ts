@@ -33,6 +33,11 @@ export default class AWSNodeStore implements NodeStore {
   }
 
   put (node: NodeType): Promise<NodeType> {
-    return this.nodeTable.put(node)
+    const data = node.toJSON()
+
+    // set the key
+    data.uuid = node.hrn.uuid
+    
+    return this.nodeTable.put(data)
   }
 }
