@@ -14,6 +14,12 @@ export default class Repository {
   public storeRegistry: StoreRegistry
   public nodeService: NodeService
 
+  /**
+   * Configure repository.
+   * 
+   * @param {HyperdocConfig} config - Configure repository
+   * @param {StoreRegistry} storeRegistry - Store registry
+   */
   configure (config: HyperdocConfig, storeRegistry: StoreRegistry) {
     this.config = config || DEFAULT_CONFIG
     this.storeRegistry = storeRegistry

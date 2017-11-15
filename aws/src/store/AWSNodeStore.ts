@@ -4,6 +4,7 @@ import { NodeStore } from 'hyperdoc-core/dist/store'
 import { NodeType } from 'hyperdoc-core/dist/model'
 
 import DynamoTable from './DynamoTable'
+import * as UUID from 'uuid'
 
 /**
  * Storage for nodes based on AWS's DynamoDB.
@@ -33,10 +34,13 @@ export default class AWSNodeStore implements NodeStore {
   }
 
   put (node: NodeType): Promise<NodeType> {
-    const data = node.toJSON()
 
     // set the key
-    data.uuid = node.hrn.uuid
+    if (!node.uuid) {
+      node = new NodeType(UUID.v4(), node.data, node.meta)
+    }
+
+    const data = node.toJSON()
     
     return this.nodeTable.put(data)
   }

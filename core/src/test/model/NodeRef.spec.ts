@@ -8,7 +8,7 @@ import { expect } from 'chai'
 describe('Core :: Model :: NodeRef', function () {
     it('convert from and to NodeRef', function () {
         const hrn = NodeHRN.generate()
-        const hrnStr = 'hyperdoc:node:' + hrn.uuid
+        const hrnStr = 'hyperdoc:node:' + hrn.id
         
         // converts to string?
         expect(hrnStr).to.equal(hrn.toString())
@@ -17,6 +17,6 @@ describe('Core :: Model :: NodeRef', function () {
         const ref2 = NodeHRN.fromString(hrnStr)
         expect(ref2).to.exist
         expect(hrn.namespace).to.equal(ref2.namespace)
-        expect(hrn.uuid).to.equal(ref2.uuid)
+        expect(hrn.id).to.equal(ref2.id)
     })
 })

@@ -3,6 +3,7 @@
 import { NodeStore } from '../../../store'
 import { NodeHRN, NodeType } from '../../../model'
 
+import * as UUID from 'uuid'
 import * as _ from 'underscore'
 
 export class InMemoryNodeStore implements NodeStore {
@@ -47,12 +48,14 @@ export class InMemoryNodeStore implements NodeStore {
     }
 
     // set UUID if missing
-    node.hrn = node.hrn || NodeHRN.generate()
+    if (!node.uuid){
+      node = new NodeType(UUID.v4(), node.data, node.meta)
+    }
 
     return new Promise((resolve, reject) => {
       // remove existing node with same UUID
       self.nodes = _.filter(self.nodes, n => {
-        return node.hrn.uuid !== n.hrn.uuid
+        return node.hrn.id !== n.hrn.uuid
       })
 
       // push node to the array

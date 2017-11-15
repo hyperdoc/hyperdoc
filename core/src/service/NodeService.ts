@@ -24,7 +24,8 @@ export default class NodeService {
    *
    * @param {Session} session - Hyperdoc session
    * @param {string} uuid - Node UUID
-   * @return {Promise<NodeType>}
+   * @return {Promise<NodeType>} Promise with a node
+   * @returns A promise that returns the saved node or an error
    */
   find (session: Session, uuid: string): Promise<NodeType> {
     return this.nodeStore.get(uuid).then(node => {
@@ -37,16 +38,18 @@ export default class NodeService {
    * Save a node.
    *
    * @param {Session} session - Hyperdoc session
-   * @param {any} data - Node data
-   * @param {any} meta - Node metadata
+   * @param {} data - Node data
+   * @param {} meta - Node metadata
+   * @returns A promise that returns the saved node or an error
    */
-  create (session: Session, data: any, meta: any): Promise<NodeType> {
+  create (session: Session, data: {}, meta: {}): Promise<NodeType> {
     // set timestamps
-    meta.createTime = new Date().toISOString()
-    meta.updateTime = meta.createTime
+    const customMeta = <any>meta
+    customMeta.createTime = new Date().toISOString()
+    customMeta.updateTime = customMeta.createTime
 
     // TODO security checks
 
-    return this.nodeStore.put(new NodeType(undefined, data, meta))
+    return this.nodeStore.put(new NodeType(undefined, data, customMeta))
   }
 }

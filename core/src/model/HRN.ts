@@ -1,6 +1,14 @@
 'use strict'
 
 /**
+ * HRN JSON structure.
+ */
+export interface HRNJson {
+  namespace: string
+  id: string
+}
+
+/**
  * Hyperdoc Resource Name. It is a URI schema to uniquely identify resources
  * in Hyperdoc. A HRN has the following structure:
  * 
@@ -14,62 +22,80 @@ export default abstract class HRN {
 
   // regular expressions to validate the HRN is well formed
   protected static NAMESPACE_REGEX = /^\w+$/i
-  protected static UUID_REGEX = /^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i
+  protected static ID_REGEX = /^(.*)$/i
   protected static HRN_REGEX = /^hyperdoc:(\w+):([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i
 
   // HRN properties
-  readonly namespace: string
-  readonly uuid: string
+  private _namespace: string
+  private _id: string
 
   /**
    * Constructor.
    * 
-   * @param namespace: string - Namespace
-   * @param uuid : string - UUID
+   * @param {string} namespace - Namespace
+   * @param {string} id - UUID
    */
-  protected constructor (namespace: string, uuid: string) {
+  protected constructor (namespace: string, id: string) {
     // check whether the namespace is well formed
     if (!HRN.NAMESPACE_REGEX.test (namespace)) {
       throw new Error ('HRN must be constructed with a valid namespace')
     }
 
     // check whether the uuid is well formed
-    if (!HRN.UUID_REGEX.test (uuid)) {
+    if (!HRN.ID_REGEX.test (id)) {
       throw new Error ('HRN must be constructed with a valid UUID') 
     }
 
-    this.namespace = namespace
-    this.uuid = uuid
+    this._namespace = namespace
+    this._id = id
+  }
+
+  /**
+   * Get HRN namespace.
+   * 
+   * @returns {string} HRN namespace
+   */
+  get namespace(): string {
+    return this._namespace
+  }
+
+  /**
+   * Get HRN id.
+   * 
+   * @returns {string} HRN id
+   */
+  get id(): string {
+    return this._id
   }
 
   /**
    * String representation of a HRN.
    * 
-   * @returns String representing a HRN
+   * @returns {string} String representing a HRN
    */
   public toString (): string {
-    return `${HRN.SCHEME}:${this.namespace}:${this.uuid}`
+    return `${HRN.SCHEME}:${this.namespace}:${this.id}`
   }
 
   /**
    * JSON representation of a HRN.
    * 
-   * @returns JSON representing a HRN
+   * @returns {HRNJson} JSON representing a HRN
    */
-  public toJson (): {namespace, uuid} {
+  public toJson (): HRNJson {
     return {
       namespace: this.namespace,
-      uuid: this.uuid
+      id: this.id
     }
   }
 
   /**
    * Parse a HRN string.
    * 
-   * @param hrn string - HRN
-   * @returns JSON representing a HRN
+   * @param {string} hrn - HRN
+   * @returns {HRNJson} JSON representing a HRN
    */
-  protected static parseHrnString (hrn: string): {namespace, uuid} {
+  protected static parseHrnString (hrn: string): HRNJson {
     // check whether the HRN is well formed
     if (!HRN.HRN_REGEX.test (hrn)) {
       throw new Error ('HRN is malformed')
@@ -81,7 +107,7 @@ export default abstract class HRN {
     // return JSON representation
     return {
       namespace: m[1],
-      uuid: m[2]
+      id: m[2]
     }
   }
 }

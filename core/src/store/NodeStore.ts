@@ -10,7 +10,7 @@ export default interface NodeStore {
    * Delete a node from the store.
    *
    * @param {string} uuid - Node UUID
-   * @return {Promise} A promise that returns empty
+   * @return {Promise<NodeType>} A promise that returns empty
    */
   delete (uuid: string): Promise<NodeType>
 
