@@ -37,7 +37,7 @@ function Save (event, context, callback): Promise<any> {
   const data = event.body
 
   // Find, or generate new, node
-  const p = uuid ? Repository.nodeService.find(context.hyperdoc.session, uuid) : Promise.resolve(new NodeType(undefined, {}, {}))
+  const p = uuid ? Repository.nodeService.find(context.hyperdoc.session, uuid) : Promise.resolve(NodeType.builder().build())
 
   return p.then(node => {
     // node not found

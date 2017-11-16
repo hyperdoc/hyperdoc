@@ -49,7 +49,12 @@ export class InMemoryNodeStore implements NodeStore {
 
     // set UUID if missing
     if (!node.uuid){
-      node = new NodeType(UUID.v4(), node.data, node.meta)
+      node = NodeType
+        .builder()
+        .uuid(UUID.v4())
+        .data(node.data)
+        .meta(node.meta)
+        .build()
     }
 
     return new Promise((resolve, reject) => {

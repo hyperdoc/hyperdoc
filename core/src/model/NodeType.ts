@@ -14,6 +14,36 @@ export type NodeTypeJSON = {
 }
 
 /**
+ * NodeType are immutable and must be created through this builder.
+ */
+export class NodeTypeBuilder {
+  private json: NodeTypeJSON
+
+  constructor(node?: NodeType) {
+    this.json = node ? node.toJSON() : <NodeTypeJSON>{}
+  }
+
+  uuid(uuid: string): NodeTypeBuilder {
+    this.json.uuid = uuid
+    return this
+  }
+
+  data(data: {}): NodeTypeBuilder {
+    this.json.data = data
+    return this
+  }
+
+  meta(meta: {}): NodeTypeBuilder {
+    this.json.meta = meta
+    return this
+  }
+
+  build(): NodeType {
+    return NodeType.fromJSON(this.json)
+  }
+}
+
+/**
  * Represents a node in Hyperdoc.
  */
 export default class NodeType implements HyperdocResource<NodeHRN> {
@@ -29,7 +59,7 @@ export default class NodeType implements HyperdocResource<NodeHRN> {
    * @param {{}} data - Node data
    * @param {{}} meta - Node metadata
    */
-  constructor (uuid: string, data: {}, meta: {}) {
+  private constructor (uuid: string, data: {}, meta: {}) {
     this.uuid = uuid
     this.hrn = uuid ? new NodeHRN(uuid) : undefined
     this.data = data || {}
@@ -57,5 +87,14 @@ export default class NodeType implements HyperdocResource<NodeHRN> {
    */
   static fromJSON (json: NodeTypeJSON): NodeType {
     return new NodeType(json.uuid, json.data, json.meta)
+  }
+
+  /**
+   * Creates a builder for NodeType.
+   * 
+   * @param {NodeType} node - Node base
+   */
+  static builder(node?: NodeType): NodeTypeBuilder {
+    return new NodeTypeBuilder(node)
   }
 }

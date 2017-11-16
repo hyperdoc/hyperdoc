@@ -8,9 +8,15 @@ import { expect } from 'chai'
 import 'mocha'
 
 describe('Core :: Model', function () {
-  it('NodeHRN is generated correctly', function() {
+  it('NodeHRN is generated correctly', function () {
     const uuid = UUID.v4()
-    const node = new NodeType(uuid, {}, {})
+    const node = NodeType
+      .builder()
+      .uuid(uuid)
+      .data({})
+      .meta({})
+      .build()
+
     expect(node.hrn).to.exist
     expect(node.hrn.id).to.equal(uuid)
   })
@@ -18,12 +24,16 @@ describe('Core :: Model', function () {
   it('convert Node class to and from JSON object', function () {
     const uuid = UUID.v4()
     // create node
-    const node = new NodeType(
-      uuid, {
-        test: 'test data'
-      }, {
-        test: 'test meta'
-      })
+    const node = NodeType
+    .builder()
+    .uuid(uuid)
+    .data({
+      test: 'test data'
+    })
+    .meta({
+      test: 'test meta'
+    })
+    .build()
 
     // convert to and from JSON object
     const node2 = NodeType.fromJSON(node.toJSON())

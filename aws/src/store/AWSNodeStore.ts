@@ -37,7 +37,12 @@ export default class AWSNodeStore implements NodeStore {
 
     // set node UUID
     if (!node.uuid) {
-      node = new NodeType(UUID.v4(), node.data, node.meta)
+      node = NodeType
+        .builder()
+        .uuid(UUID.v4())
+        .data(node.data)
+        .meta(node.meta)
+        .build()
     }
 
     const data = node.toJSON()

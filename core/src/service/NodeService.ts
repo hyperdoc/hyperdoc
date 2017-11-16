@@ -49,6 +49,12 @@ export default class NodeService {
 
     // TODO security checks
 
-    return this.nodeStore.put(new NodeType(undefined, data, customMeta))
+    const node = NodeType
+      .builder()
+      .data(data)
+      .meta(customMeta)
+      .build()
+      
+    return this.nodeStore.put(node)
   }
 }

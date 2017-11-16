@@ -3,7 +3,7 @@
 'use strict'
 
 import * as AWS from 'aws-sdk-mock'
-import * as uuid from 'uuid'
+import * as UUID from 'uuid'
 import * as LambdaTester from 'lambda-tester'
 import { expect } from 'chai'
 import 'mocha'
@@ -14,9 +14,14 @@ const API_NODE = require('../../../lambda/api/node')
 // placeholders for lambdas that will be initiated after mocking AWS
 let GetNode, SaveNode
 
-const MISSING_NODE_UUID = uuid.v1()
-const NODE_UUID = uuid.v1()
-const NODE = new NodeType(NODE_UUID, {}, {})
+const MISSING_NODE_UUID: string = UUID.v4()
+const NODE_UUID: string = UUID.v4()
+const NODE: NodeType = NodeType
+  .builder()
+  .uuid(NODE_UUID)
+  .data({})
+  .meta({})
+  .build()
 
 describe('Lambda :: API :: Node', function () {
   before(function () {
