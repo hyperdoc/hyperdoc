@@ -2,12 +2,15 @@
 
 import { HandleHttpResponse } from './util'
 
+export type AWSLambdaFunction = (event, context, callback) => void
+export type HyperdocLambdaFunction = (event, context, callback) => Promise<any>
+
 /**
  * Wrap an AWS Lambda function to handle general errors, execute interceptors, etc.
  *
  * @param {Function} func - AWS Lambda function
  */
-export function wrapAWSLambdaFunction (func: Function): Function {
+export function wrapAWSLambdaFunction (func: HyperdocLambdaFunction): AWSLambdaFunction {
   return (event, context, callback) => {
     try {
       // TODO apply PRE lambda interceptors

@@ -9,13 +9,13 @@ import 'mocha'
 
 class MyNodeStore implements NodeStore {
   delete(uuid: string): Promise<NodeType> {
-    throw new Error("Method not implemented.");
+    throw new Error("Method not implemented.")
   }
   get(uuid: string): Promise<NodeType> {
-    throw new Error("Method not implemented.");
+    throw new Error("Method not implemented.")
   }
   put(node: NodeType): Promise<NodeType> {
-    throw new Error("Method not implemented.");
+    throw new Error("Method not implemented.")
   }
 }
 

@@ -9,6 +9,7 @@ import AWSNodeStore from './AWSNodeStore'
  * Initialise an AWS based store registry.
  *
  * @param {AwsConfig} config - AWS Configuration
+ * @returns {StoreRegistry} Store registry
  */
 export function initStoreRegistry (config: AwsConfig): StoreRegistry {
   // init stores
@@ -17,4 +18,4 @@ export function initStoreRegistry (config: AwsConfig): StoreRegistry {
   return new StoreRegistry(nodeStore)
 }
 
-export { AWSNodeStore as AWSNodeStore }
+export { AWSNodeStore }

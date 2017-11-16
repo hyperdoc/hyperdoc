@@ -35,7 +35,7 @@ export default class AWSNodeStore implements NodeStore {
 
   put (node: NodeType): Promise<NodeType> {
 
-    // set the key
+    // set node UUID
     if (!node.uuid) {
       node = new NodeType(UUID.v4(), node.data, node.meta)
     }

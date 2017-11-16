@@ -52,6 +52,7 @@ export default class NodeHRN extends HRN {
    * Generate a NodeHRN from a JSON object.
    * 
    * @param HRNJson json - Node HRN as JSON
+   * @returns {NodeHRN} Node HRN
    */
   public static fromJson (json: HRNJson): NodeHRN {
     // check whether the namespace is 'node'

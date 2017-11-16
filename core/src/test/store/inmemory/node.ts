@@ -19,7 +19,7 @@ export class InMemoryNodeStore implements NodeStore {
     return new Promise((resolve, reject) => {
       // remove node
       self.nodes = _.filter(self.nodes, n => {
-        return n.hrn.uuid !== uuid
+        return n.uuid !== uuid
       })
 
       resolve(null)
@@ -32,7 +32,7 @@ export class InMemoryNodeStore implements NodeStore {
     return new Promise((resolve, reject) => {
       // find existing node with same UUID
       const node = _.find(self.nodes, n => {
-        return n.hrn.uuid === uuid
+        return n.uuid === uuid
       })
 
       resolve(node)
@@ -55,7 +55,7 @@ export class InMemoryNodeStore implements NodeStore {
     return new Promise((resolve, reject) => {
       // remove existing node with same UUID
       self.nodes = _.filter(self.nodes, n => {
-        return node.hrn.id !== n.hrn.uuid
+        return node.uuid !== n.uuid
       })
 
       // push node to the array

@@ -26,8 +26,8 @@ export default abstract class HRN {
   protected static HRN_REGEX = /^hyperdoc:(\w+):([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i
 
   // HRN properties
-  private _namespace: string
-  private _id: string
+  readonly namespace: string
+  readonly id: string
 
   /**
    * Constructor.
@@ -46,26 +46,8 @@ export default abstract class HRN {
       throw new Error ('HRN must be constructed with a valid UUID') 
     }
 
-    this._namespace = namespace
-    this._id = id
-  }
-
-  /**
-   * Get HRN namespace.
-   * 
-   * @returns {string} HRN namespace
-   */
-  get namespace(): string {
-    return this._namespace
-  }
-
-  /**
-   * Get HRN id.
-   * 
-   * @returns {string} HRN id
-   */
-  get id(): string {
-    return this._id
+    this.namespace = namespace
+    this.id = id
   }
 
   /**

@@ -17,7 +17,7 @@ import { wrapAWSLambdaFunction } from '../wrapper'
  *
  * @returns {Promise}
  */
-function Get (event, context, callback) {
+function Get (event, context, callback): Promise<any> {
   const uuid = event.pathParameters.uuid
 
   return Repository.nodeService.find(context.hyperdoc.session, uuid).then(node => {
@@ -32,7 +32,7 @@ function Get (event, context, callback) {
 /**
  * Create or update a node.
  */
-function Save (event, context, callback) {
+function Save (event, context, callback): Promise<any> {
   const uuid = event.pathParameters.uuid
   const data = event.body
 

@@ -24,10 +24,10 @@ export default class DynamoTable<T> {
   /**
    * Delete an item.
    * 
-   * @param {Object} key - Item key
+   * @param {{}} key - Item key
    * @return {Promise<T>} A promise that returns an empty object
    */
-  delete (key): Promise<T> {
+  delete (key: {}): Promise<T> {
     const documentClient = new AWS.DynamoDB.DocumentClient()
 
     // delete item and wrap response in a promise
@@ -48,10 +48,10 @@ export default class DynamoTable<T> {
   /**
    * Get an item.
    * 
-   * @param {Object} key - Item key
+   * @param {{}} key - Item key
    * @return {Promise<T>} A promise that returns the item object, or undefined if not found.
    */
-  get (key): Promise<T> {
+  get (key: {}): Promise<T> {
     const self = this
     const documentClient = new AWS.DynamoDB.DocumentClient()
 
@@ -73,10 +73,10 @@ export default class DynamoTable<T> {
   /**
    * Create, or update, an item.
    * 
-   * @param {Object} data - Item data
+   * @param {{}} item - Item data
    * @return {Promise<T>} A promise that returns the saved item object.
    */
-  put (data): Promise<T> {
+  put (item: {}): Promise<T> {
     const self = this
     const documentClient = new AWS.DynamoDB.DocumentClient()
 
@@ -84,12 +84,12 @@ export default class DynamoTable<T> {
     return new Promise((resolve, reject) => {
       documentClient.put({
         TableName: this.params.tableName,
-        Item: data
+        Item: item
       }, (err) => {
         if (err) {
           reject(err)
         } else {
-          resolve(self.mapper ? self.mapper(data) : data)
+          resolve(self.mapper ? self.mapper(item) : item)
         }
       })
     })
