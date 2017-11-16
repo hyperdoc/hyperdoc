@@ -38,10 +38,8 @@ export default class AWSNodeStore implements NodeStore {
     // set node UUID
     if (!node.uuid) {
       node = NodeType
-        .builder()
+        .builder(node)
         .uuid(UUID.v4())
-        .data(node.data)
-        .meta(node.meta)
         .build()
     }
 

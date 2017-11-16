@@ -50,10 +50,8 @@ export class InMemoryNodeStore implements NodeStore {
     // set UUID if missing
     if (!node.uuid){
       node = NodeType
-        .builder()
+        .builder(node)
         .uuid(UUID.v4())
-        .data(node.data)
-        .meta(node.meta)
         .build()
     }
 
